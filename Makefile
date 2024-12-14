@@ -25,8 +25,10 @@ WHITE = \033[37m
 SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
+		draw_player_2d \
 		end \
 		key_hook \
+		loop_hook \
 		main \
 	) \
 ) \

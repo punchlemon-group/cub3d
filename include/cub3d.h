@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 17:20:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:59:34 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define CUB3D_H
 
 # define ESC 65307
+// # define UP 65362
 # define LEFT 65361
-# define UP 65362
+// # define DOWN 65364
 # define RIGHT 65363
-# define DOWN 65364
-# define A 97
 # define W 119
+# define A 97
 # define S 115
 # define D 100
 
@@ -27,7 +27,14 @@
 
 # define P 4
 
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define X_BUTTON 17
+
+# define KEY_NUM 6
+
 # include "mlx.h"
+# include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
@@ -39,11 +46,20 @@ enum
 	END,
 };
 
+enum
+{
+	LEFT_ID = 0,
+	RIGHT_ID,
+	W_ID,
+	A_ID,
+	S_ID,
+	D_ID,
+};
+
 typedef struct s_player
 {
 	float	x;
 	float	y;
-	int		angle_deg;
 	float	angle_rad;
 }	t_player;
 
@@ -55,10 +71,15 @@ typedef struct s_vars
 	int			height;
 	t_player	player;
 	char		*addr;
+	int			keys[KEY_NUM];
 }	t_vars;
 
+void	draw_player_2d(t_vars *vars, int color);
 void	end(t_vars *vars, int status);
-int		key_hook(int keycode, t_vars *vars);
+// int		key_hook(int keycode, t_vars *vars);
 int		window_close(t_vars *vars);
+int		loop_hook(t_vars *vars);
+int		key_press(int key, t_vars *vars);
+int		key_release(int key, t_vars *vars);
 
 #endif

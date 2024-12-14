@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 17:40:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:32:27by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	check_args(int argc, char **argv)
 
 int	init(t_vars *vars)
 {
+	int	i;
+
+	i = 0;
+	while (i < KEY_NUM)
+		vars->keys[i++] = 0;
 	vars->width = 1920;
 	vars->height = 1080;
 	vars->mlx = mlx_init();
@@ -32,9 +37,8 @@ int	init(t_vars *vars)
 	if (!vars->win)
 		return (mlx_destroy_display(vars->mlx), END);
 	vars->addr = "./maps/test.ber";
-	vars->player.x = 0;
-	vars->player.y = 0;
-	vars->player.angle_deg = 0;
+	vars->player.x = 300;
+	vars->player.y = 300;
 	vars->player.angle_rad = 0;
 	return (CNT);
 }
@@ -47,8 +51,14 @@ int	main(int argc, char **argv)
 		return (END);
 	if (init(&vars) == END)
 		return (END);
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, 17, 0, window_close, &vars);
+
+	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
+	mlx_hook(vars.win, KEY_RELEASE, 1L << 1, key_release, &vars);
+
+	mlx_hook(vars.win, X_BUTTON, 0, window_close, &vars); // Xボタンに対応
+
+	mlx_loop_hook(vars.mlx, loop_hook, &vars);
+
 	mlx_loop(vars.mlx);
 	return (0);
 }
