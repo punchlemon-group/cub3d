@@ -6,32 +6,45 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:18:03 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 17:39:14 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:45:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	key_hook(int keycode, t_vars *vars)
+void	update_player(int key, t_player *player)
 {
-	if (keycode == ESC)
-		return (end(vars, 0), END);
-	else if (keycode == W)
-		vars->player.y -= 0.1;
-	else if (keycode == S)
-		vars->player.y += 0.1;
-	else if (keycode == D)
-		vars->player.x += 0.1;
-	else if (keycode == A)
-		vars->player.x -= 0.1;
-	else if (keycode == RIGHT || keycode == LEFT)
+	if (key == W)
+		player->y -= 0.1;
+	else if (key == S)
+		player->y += 0.1;
+	else if (key == D)
+		player->x += 0.1;
+	else if (key == A)
+		player->x -= 0.1;
+	else if (key == RIGHT || key == LEFT)
 	{
-		if (keycode == RIGHT)
-			vars->player.angle_deg++;
+		if (key == RIGHT)
+			player->angle_deg++;
 		else
-			vars->player.angle_deg--;
-		vars->player.angle_rad = vars->player.angle_deg * PI / 180;
+			player->angle_deg--;
+		player->angle_rad = player->angle_deg * PI / 180;
 	}
-	printf("x:%f, y:%f, angle_deg:%d, angle_rad:%f\n", vars->player.x, vars->player.y, vars->player.angle_deg, vars->player.angle_rad);
+}
+
+void	print_player_status(t_player player)
+{
+	printf("x:%f, y:%f, angle_deg:%d, angle_rad:%f\n", player.x, player.y,
+		player.angle_deg, player.angle_rad);
+}
+
+int	key_hook(int key, t_vars *vars)
+{
+	if (key == ESC)
+		return (end(vars, 0), END);
+	else if (key == W || key == S || key == D || key == A
+		|| key == RIGHT || key == LEFT)
+		update_player(key, &(vars->player));
+	print_player_status(vars->player);
 	return (CNT);
 }
