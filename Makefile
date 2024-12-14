@@ -27,6 +27,7 @@ $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		draw_player_2d \
 		end \
+		ft_pixel_put_to_image \
 		key_hook \
 		loop_hook \
 		main \

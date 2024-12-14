@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 20:11:58 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:51:35 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	loop_hook(t_vars *vars)
 {
 	int	bias;
 
-	mlx_clear_window(vars->mlx, vars->win);
 	if (vars->keys[W_ID] || vars->keys[S_ID])
 	{
 		if (vars->keys[W_ID])
@@ -30,8 +29,8 @@ int	loop_hook(t_vars *vars)
 			bias = 270;
 		if (!(vars->keys[W_ID] && vars->keys[S_ID]))
 		{
-			vars->player.x += 0.01 * cos(vars->player.angle_rad + bias * PI / 180);
-			vars->player.y -= 0.01 * sin(vars->player.angle_rad + bias * PI / 180);
+			vars->player.x += cos(vars->player.angle_rad + bias * PI / 180);
+			vars->player.y -= sin(vars->player.angle_rad + bias * PI / 180);
 		}
 	}
 	if (vars->keys[A_ID] || vars->keys[D_ID])
@@ -42,8 +41,8 @@ int	loop_hook(t_vars *vars)
 			bias = 0;
 		if (!(vars->keys[A_ID] && vars->keys[D_ID]))
 		{
-			vars->player.x += 0.01 * cos(vars->player.angle_rad + bias * PI / 180);
-			vars->player.y -= 0.01 * sin(vars->player.angle_rad + bias * PI / 180);
+			vars->player.x += cos(vars->player.angle_rad + bias * PI / 180);
+			vars->player.y -= sin(vars->player.angle_rad + bias * PI / 180);
 		}
 	} // これだと前と横同時押しされたときに√2倍速く進む
 	if (vars->keys[RIGHT_ID] || vars->keys[LEFT_ID])

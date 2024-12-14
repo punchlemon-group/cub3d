@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 20:17:11 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:03:35 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@
 
 # define KEY_NUM 6
 
+# define LITTLE_ENDIAN 0
+
 # include "mlx.h"
+# include "mlx_int.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -67,14 +70,15 @@ typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
+	t_img		*image_buffer;
 	int			width;
 	int			height;
 	t_player	player;
 	char		*addr;
 	int			keys[KEY_NUM];
-	void		*image_buffer;
 }	t_vars;
 
+void	ft_pixel_put_to_image(t_vars *vars, int color, int x, int y);
 void	draw_player_2d(t_vars *vars, int color);
 void	end(t_vars *vars, int status);
 // int		key_hook(int keycode, t_vars *vars);

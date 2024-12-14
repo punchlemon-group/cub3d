@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_player_2d.c                                   :+:      :+:    :+:   */
+/*   ft_pixel_put_to_image.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:49:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 21:04:08 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/14 20:59:48 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/14 21:03:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player_2d(t_vars *vars, int color)
+void	ft_pixel_put_to_image(t_vars *vars, int color, int x, int y)
 {
-	ft_pixel_put_to_image(vars, color, vars->player.x, vars->player.y);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
-	// mlx_pixel_put(vars->mlx, vars->win, vars->player.x, vars->player.y, color);
+	((int *)vars->image_buffer->data)[y * vars->width + x] = color;
 }
