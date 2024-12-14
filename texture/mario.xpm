@@ -1,0 +1,26 @@
+/* XPM */
+static char *mario_xpm[] = {
+"16 16 6 1",
+"  c #DF331F",
+". c #E03420",
+"X c #A16423",
+"o c #D6AE73",
+"O c #FFFF42",
+"+ c #86A4CA",
+"+++++.....++++++",
+"++++.........+++",
+"++++XXXooXo+++++",
+"+++XoXoooXooo+++",
+"+++XoXXoooXooo++",
+"+++XXooooXXXX+++",
+"+++++ooooooo++++",
+"++++XX.XXX++++++",
+"+++XXX.XX.XXX+++",
+"++XXXX....XXXX++",
+"++ooX.O..O.Xoo++",
+"++ooo......ooo++",
+"++oo.......ooo++",
+"++++...++...++++",
+"+++XXX++++XXX+++",
+"++XXXX++++XXXX++"
+};
