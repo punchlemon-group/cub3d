@@ -41,8 +41,8 @@ int	init(t_vars *vars)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
 	vars->addr = "./maps/test.ber";
-	vars->player.x = 300;
-	vars->player.y = 300;
+	vars->player.x = 6;
+	vars->player.y = 6;
 	vars->player.angle_rad = 0;
 	return (CNT);
 }

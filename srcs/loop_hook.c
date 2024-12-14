@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 20:51:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:32:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	print_player_status(t_player player)
 
 int	loop_hook(t_vars *vars)
 {
-	int	bias;
+	struct timeval	tv;
+	long			tmp;
+	static long		msec;
+	int				bias;
 
 	if (vars->keys[W_ID] || vars->keys[S_ID])
 	{
@@ -29,8 +32,8 @@ int	loop_hook(t_vars *vars)
 			bias = 270;
 		if (!(vars->keys[W_ID] && vars->keys[S_ID]))
 		{
-			vars->player.x += cos(vars->player.angle_rad + bias * PI / 180);
-			vars->player.y -= sin(vars->player.angle_rad + bias * PI / 180);
+			vars->player.x += 0.0001 * cos(vars->player.angle_rad + bias * PI / 180);
+			vars->player.y -= 0.0001 * sin(vars->player.angle_rad + bias * PI / 180);
 		}
 	}
 	if (vars->keys[A_ID] || vars->keys[D_ID])
@@ -41,8 +44,8 @@ int	loop_hook(t_vars *vars)
 			bias = 0;
 		if (!(vars->keys[A_ID] && vars->keys[D_ID]))
 		{
-			vars->player.x += cos(vars->player.angle_rad + bias * PI / 180);
-			vars->player.y -= sin(vars->player.angle_rad + bias * PI / 180);
+			vars->player.x += 0.0001 * cos(vars->player.angle_rad + bias * PI / 180);
+			vars->player.y -= 0.0001 * sin(vars->player.angle_rad + bias * PI / 180);
 		}
 	} // これだと前と横同時押しされたときに√2倍速く進む
 	if (vars->keys[RIGHT_ID] || vars->keys[LEFT_ID])
@@ -52,10 +55,19 @@ int	loop_hook(t_vars *vars)
 		if (vars->keys[LEFT_ID])
 			vars->player.angle_rad += 0.0001;
 	}
-	if (vars->keys[W_ID] || vars->keys[S_ID]
-		|| vars->keys[A_ID] || vars->keys[D_ID]
-		|| vars->keys[RIGHT_ID] || vars->keys[LEFT_ID])
-		print_player_status(vars->player);
-	draw_player_2d(vars, 0xff0000);
+	gettimeofday(&tv, NULL);
+	tmp = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	if (!msec || (tmp - msec) > 1000 / FRESH_RATE)
+	{
+		msec = tmp;
+		printf("%ld:   ", msec);
+		if (vars->keys[W_ID] || vars->keys[S_ID]
+			|| vars->keys[A_ID] || vars->keys[D_ID]
+			|| vars->keys[RIGHT_ID] || vars->keys[LEFT_ID])
+			print_player_status(vars->player);
+		else
+			printf("\n");
+		draw_player_2d(vars, 0xff0000);
+	}
 	return (CNT);
 }

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 21:03:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:32:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@
 
 # define LITTLE_ENDIAN 0
 
+# define FRESH_RATE 50
+
 # include "mlx.h"
 # include "mlx_int.h"
 # include <math.h>
+# include <sys/time.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
@@ -61,8 +64,8 @@ enum
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 	float	angle_rad;
 }	t_player;
 
