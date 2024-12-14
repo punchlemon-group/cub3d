@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 18:59:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:17:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_vars
 	t_player	player;
 	char		*addr;
 	int			keys[KEY_NUM];
+	void		*image_buffer;
 }	t_vars;
 
 void	draw_player_2d(t_vars *vars, int color);

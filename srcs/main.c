@@ -36,6 +36,10 @@ int	init(t_vars *vars)
 	vars->win = mlx_new_window(vars->mlx, vars->width, vars->height, "cub3d");
 	if (!vars->win)
 		return (mlx_destroy_display(vars->mlx), END);
+	vars->image_buffer = mlx_new_image(vars->mlx, vars->width, vars->height);
+	if (!vars->image_buffer)
+		return (mlx_destroy_window(vars->mlx, vars->win),
+			mlx_destroy_display(vars->mlx), END);
 	vars->addr = "./maps/test.ber";
 	vars->player.x = 300;
 	vars->player.y = 300;

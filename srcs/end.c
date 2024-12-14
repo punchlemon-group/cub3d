@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:48:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 17:18:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:21:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	end(t_vars *vars, int status)
 	{
 		// free_img(vars);
 		// free_map(vars->map);
-		if (vars->mlx != NULL && vars->win != NULL)
-			mlx_destroy_window(vars->mlx, vars->win);
-		if (vars->mlx != NULL)
-			mlx_destroy_display(vars->mlx);
+		mlx_destroy_image(vars->mlx, vars->image_buffer);
+		mlx_destroy_window(vars->mlx, vars->win);
+		mlx_destroy_display(vars->mlx);
 		free(vars->mlx);
 	}
 	exit(status);
