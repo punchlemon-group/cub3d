@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 11:14:27 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:18:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,35 @@ void	print_player_status(t_player player)
 	printf("x:%f, y:%f, angle_rad:%f\n", player.x, player.y, player.angle_rad);
 }
 
+int	get_bias(int *keys)
+{
+	int	bias;
+
+	bias = 0;
+	if (keys[W_ID] != keys[S_ID])
+	{
+		if (keys[W_ID])
+			bias += 90;
+		else if (keys[S_ID])
+			bias += 270;
+	}
+	if (keys[A_ID] != keys[D_ID])
+	{
+		if (keys[A_ID])
+			bias += 180;
+		if (keys[W_ID] != keys[S_ID])
+			bias /= 2;
+	}
+	return (bias);
+}
+
 void	player_move(t_vars *vars)
 {
 	float	speed;
 	int		bias;
 
-	bias = 0;
 	speed = 0.0001;
-	if (vars->keys[W_ID] != vars->keys[S_ID])
-	{
-		if (vars->keys[W_ID])
-			bias += 90;
-		else if (vars->keys[S_ID])
-			bias += 270;
-	}
-	if (vars->keys[A_ID] != vars->keys[D_ID])
-	{
-		if (vars->keys[A_ID])
-			bias += 180;
-		if (vars->keys[W_ID] != vars->keys[S_ID])
-			bias /= 2;
-	}
+	bias = get_bias(vars->keys);
 	if (vars->keys[W_ID] != vars->keys[S_ID]
 		|| vars->keys[A_ID] != vars->keys[D_ID])
 	{
