@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 21:47:44 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:38:14 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	init(t_vars *vars, int **map)
 	vars->player.x = 6;
 	vars->player.y = 6;
 	vars->player.angle_rad = 0;
+	vars->last_calc_time = 0;
+	vars->last_disp_time = 0;
 	return (CNT);
 }
 
@@ -66,7 +68,7 @@ int	main(int argc, char **argv)
 
 	if (check_args(argc, argv) == END)
 		return (END);
-	if (init(&vars, map) == END)
+	if (init(&vars, (int **)map) == END)
 		return (END);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);

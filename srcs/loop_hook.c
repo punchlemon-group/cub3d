@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 21:32:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:44:54 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	loop_hook(t_vars *vars)
 {
 	struct timeval	tv;
 	long			tmp;
-	static long		msec;
 	int				bias;
 
 	if (vars->keys[W_ID] || vars->keys[S_ID])
@@ -56,17 +55,17 @@ int	loop_hook(t_vars *vars)
 			vars->player.angle_rad += 0.0001;
 	}
 	gettimeofday(&tv, NULL);
-	tmp = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	if (!msec || (tmp - msec) > 1000 / FRESH_RATE)
+	tmp = tv.tv_sec * 1000000 + tv.tv_usec;
+	if (vars->last_calc_time)
+		printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
+	vars->last_calc_time = tmp;
+	if (!vars->last_disp_time || (tmp - vars->last_disp_time) > 1000000 / FPS)
 	{
-		msec = tmp;
-		printf("%ld:   ", msec);
+		vars->last_disp_time = tmp;
 		if (vars->keys[W_ID] || vars->keys[S_ID]
 			|| vars->keys[A_ID] || vars->keys[D_ID]
 			|| vars->keys[RIGHT_ID] || vars->keys[LEFT_ID])
 			print_player_status(vars->player);
-		else
-			printf("\n");
 		draw_player_2d(vars, 0xff0000);
 	}
 	return (CNT);
