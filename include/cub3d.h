@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 10:35:40 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:23:51 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@
 
 # define LITTLE_ENDIAN 0
 
-# define FPS 50
+# define MAP_SCALE 50
 
+# define FPS 60
+
+# include "libft.h"
+# include "get_next_line.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include <math.h>
@@ -62,6 +66,12 @@ enum
 	D_ID,
 };
 
+typedef struct s_cordinate
+{
+	int	x;
+	int	y;
+}	t_cordinate;
+
 typedef struct s_player
 {
 	double	x;
@@ -80,12 +90,15 @@ typedef struct s_vars
 	char		*addr;
 	long		last_calc_time;
 	long		last_disp_time;
-	int			**map;
+	char		**map;
 	int			keys[KEY_NUM];
 }	t_vars;
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, int x, int y);
+void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
+void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r);
+void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a);
 void	draw_player_2d(t_vars *vars, int color);
+void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	end(t_vars *vars, int status);
 // int		key_hook(int keycode, t_vars *vars);
 int		window_close(t_vars *vars);

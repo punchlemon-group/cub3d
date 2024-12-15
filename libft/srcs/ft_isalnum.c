@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pixel_put_to_image.c                            :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 20:59:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 14:54:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/04/19 05:17:11 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/04/19 05:17:15 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c)
+int	ft_isalnum(int c)
 {
-	((int *)vars->image_buffer->data)[c.y * vars->width + c.x] = color;
+	if ('0' <= c && c <= '9')
+		return (1);
+	else if ('A' <= c && c <= 'Z')
+		return (1);
+	else if ('a' <= c && c <= 'z')
+		return (1);
+	return (0);
 }

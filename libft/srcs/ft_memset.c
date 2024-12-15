@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pixel_put_to_image.c                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 20:59:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 14:54:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/04/19 05:24:22 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/04/19 07:15:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	((int *)vars->image_buffer->data)[c.y * vars->width + c.x] = color;
+	unsigned char	*bb;
+	size_t			i;
+
+	bb = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		bb[i] = c;
+		i++;
+	}
+	return (b);
 }

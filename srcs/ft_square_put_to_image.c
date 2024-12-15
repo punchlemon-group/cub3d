@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_player_2d.c                                   :+:      :+:    :+:   */
+/*   ft_square_put_to_image.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:49:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:19:44 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/15 14:50:18 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/15 14:58:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player_2d(t_vars *vars, int color)
+void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a)
 {
-	t_cordinate	c;
+	int	i;
+	int	j;
+	int	*image_buffer;
 
-	c.x = vars->player.x * MAP_SCALE;
-	c.y = vars->player.y * MAP_SCALE;
-	// ft_pixel_put_to_image(vars, color, c);
-	ft_circle_put_to_image(vars, color, c, 5);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
-	// mlx_pixel_put(vars->mlx, vars->win, vars->player.x, vars->player.y, color);
+	image_buffer = (int *)vars->image_buffer->data;
+	i = 0;
+	while (i < a)
+	{
+		j = 0;
+		while (j < a)
+		{
+			image_buffer[(c.y + i) * vars->width + (c.x + j)] = color;
+			j++;
+		}
+		i++;
+	}
 }

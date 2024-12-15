@@ -1,8 +1,6 @@
 .PHONY: all clean fclean re val norm
 NAME = cub3d
 
-CC = gcc
-
 LIBFT_DIR = libft
 LIBFT_A = libft.a
 
@@ -26,8 +24,11 @@ SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		draw_player_2d \
+		draw_map_2d \
 		end \
+		ft_circle_put_to_image \
 		ft_pixel_put_to_image \
+		ft_square_put_to_image \
 		key_hook \
 		loop_hook \
 		main \
@@ -41,7 +42,7 @@ NPD_FLAG = --no-print-directory
 
 CFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I/usr/$(INCLUDE_DIR) -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/$(INCLUDE_DIR) -I$(MLX_DIR)
-LFLAGS = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz #-L$(LIBFT_DIR) -lft
+LFLAGS = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft
 VFLAGS = \
 	--leak-check=full \
 	--show-leak-kinds=all \
@@ -49,7 +50,7 @@ VFLAGS = \
 
 all: $(NAME)
 
-$(NAME): $(MLX_DIR)/$(MLX_A) | $(OBJS)
+$(NAME): $(LIBFT_DIR)/$(LIBFT_A) $(MLX_DIR)/$(MLX_A) | $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
 
 $(LIBFT_DIR)/$(LIBFT_A):
@@ -63,12 +64,12 @@ $(OUT_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-# @make $(NPD_FLAG) -C $(LIBFT_DIR) clean
+	@make $(NPD_FLAG) -C $(LIBFT_DIR) clean
 	@make $(NPD_FLAG) -C $(MLX_DIR) clean
 	@$(RM) -r $(OUT_DIR)
 
 fclean: clean
-# @$(RM) $(LIBFT_DIR)/$(LIBFT_A)
+	@$(RM) $(LIBFT_DIR)/$(LIBFT_A)
 	@$(RM) $(NAME) $(VALGRIND_LOG)
 
 re: fclean all

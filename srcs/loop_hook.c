@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 11:18:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:24:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,47 @@ void	print_player_status(t_player player)
 	printf("x:%f, y:%f, angle_rad:%f\n", player.x, player.y, player.angle_rad);
 }
 
-int	get_bias(int *keys)
+float	get_bias_rad(int *keys)
 {
-	int	bias;
+	float	bias_rad;
 
-	bias = 0;
+	bias_rad = 0.0;
 	if (keys[W_ID] != keys[S_ID])
 	{
 		if (keys[W_ID])
-			bias += 90;
+			bias_rad += PI / 2;
 		else if (keys[S_ID])
-			bias += 270;
+			bias_rad += 3 * PI / 2;
 	}
 	if (keys[A_ID] != keys[D_ID])
 	{
 		if (keys[A_ID])
-			bias += 180;
+			bias_rad += PI;
 		if (keys[W_ID] != keys[S_ID])
-			bias /= 2;
+			bias_rad = bias_rad / 2.0;
 	}
-	return (bias);
+	return (bias_rad);
 }
 
 void	player_move(t_vars *vars)
 {
 	float	speed;
-	int		bias;
+	float	bias_rad;
+	double	x_;
+	double	y_;
 
 	speed = 0.0001;
-	bias = get_bias(vars->keys);
+	bias_rad = get_bias_rad(vars->keys);
 	if (vars->keys[W_ID] != vars->keys[S_ID]
 		|| vars->keys[A_ID] != vars->keys[D_ID])
 	{
-		vars->player.x += speed * cos(vars->player.angle_rad + bias * PI / 180);
-		vars->player.y -= speed * sin(vars->player.angle_rad + bias * PI / 180);
+		x_ = vars->player.x + speed * cos(vars->player.angle_rad + bias_rad);
+		y_ = vars->player.y - speed * sin(vars->player.angle_rad + bias_rad);
+		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する)
+		{
+			vars->player.x = x_;
+			vars->player.y = y_;
+		}
 	}
 }
 
@@ -77,16 +84,18 @@ int	loop_hook(t_vars *vars)
 	player_rotate(vars);
 	gettimeofday(&tv, NULL);
 	tmp = tv.tv_sec * 1000000 + tv.tv_usec;
-	if (vars->last_calc_time)
-		printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
+	// if (vars->last_calc_time)
+	// 	printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
 	vars->last_calc_time = tmp;
 	if (!vars->last_disp_time || (tmp - vars->last_disp_time) > 1000000 / FPS)
 	{
+		// printf("%lfHz\n", 1000000.0 / (tmp - vars->last_disp_time));
 		vars->last_disp_time = tmp;
-		if ((vars->keys[W_ID] != vars->keys[S_ID])
-			|| (vars->keys[A_ID] != vars->keys[D_ID])
-			|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
-			print_player_status(vars->player);
+		// if ((vars->keys[W_ID] != vars->keys[S_ID])
+		// 	|| (vars->keys[A_ID] != vars->keys[D_ID])
+		// 	|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
+		// 	print_player_status(vars->player);
+		draw_map_2d(vars, 0xdddddd, 0xffff00);
 		draw_player_2d(vars, 0xff0000);
 	}
 	return (CNT);

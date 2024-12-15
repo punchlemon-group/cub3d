@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 10:38:14 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:28:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_args(int argc, char **argv)
 	return (CNT);
 }
 
-int	init(t_vars *vars, int **map)
+int	init(t_vars *vars)
 {
 	int	i;
 
@@ -41,35 +41,79 @@ int	init(t_vars *vars, int **map)
 	if (!vars->image_buffer)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
-	vars->addr = "./maps/test.ber";
-	vars->map = map; // 本当はvars->addrから展開する関数を呼び出す
-	vars->player.x = 6;
-	vars->player.y = 6;
+	vars->addr = "maps/test.ber";
+	vars->player.x = 1.5;
+	vars->player.y = 1.5;
 	vars->player.angle_rad = 0;
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	return (CNT);
 }
 
+char	*ft_join_and_free(char *s1, char *s2)
+{
+	char	*ans;
+	int		i;
+	int		j;
+
+	if (s1 == NULL)
+		return (NULL);
+	ans = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ans == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		ans[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+		ans[i++] = s2[j++];
+	ans[i] = '\0';
+	free(s1);
+	free(s2);
+	return (ans);
+}
+
+char	**get_map(char *file)
+{
+	int		fd;
+	char	*crr_line;
+	char	*linked_lines;
+	char	**map;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	linked_lines = ft_strdup("");
+	if (!linked_lines)
+		return (NULL);
+	while (1)
+	{
+		crr_line = get_next_line(fd);
+		if (crr_line == NULL)
+			break ;
+		linked_lines = ft_join_and_free(linked_lines, crr_line);
+		if (linked_lines == NULL)
+			return (NULL);
+	}
+	// get_map_handle_error(crr_line, linked_lines);
+	free(crr_line);
+	map = ft_split(linked_lines, '\n');
+	free(linked_lines);
+	return (map);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars		vars;
-	static int	map[8][8] =
-	{
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-	};
 
 	if (check_args(argc, argv) == END)
 		return (END);
-	if (init(&vars, (int **)map) == END)
+	if (init(&vars) == END)
 		return (END);
+	vars.map = get_map(vars.addr);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
 	mlx_hook(vars.win, KEY_RELEASE, 1L << 1, key_release, &vars);

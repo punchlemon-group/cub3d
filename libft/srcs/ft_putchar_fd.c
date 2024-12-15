@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pixel_put_to_image.c                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 20:59:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 14:54:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/04/19 05:25:21 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/04/19 05:25:24 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c)
+void	ft_putchar_fd(char c, int fd)
 {
-	((int *)vars->image_buffer->data)[c.y * vars->width + c.x] = color;
+	write(fd, &c, 1);
+	return ;
 }

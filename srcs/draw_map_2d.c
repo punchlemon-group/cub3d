@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_player_2d.c                                   :+:      :+:    :+:   */
+/*   draw_map_2d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:49:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:19:44 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/15 14:43:26 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/15 15:07:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player_2d(t_vars *vars, int color)
+void	draw_map_2d(t_vars *vars, int floor_color, int wall_color)
 {
+	int	i;
+	int	j;
 	t_cordinate	c;
 
-	c.x = vars->player.x * MAP_SCALE;
-	c.y = vars->player.y * MAP_SCALE;
-	// ft_pixel_put_to_image(vars, color, c);
-	ft_circle_put_to_image(vars, color, c, 5);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
-	// mlx_pixel_put(vars->mlx, vars->win, vars->player.x, vars->player.y, color);
+	i = 0;
+	while (vars->map[i])
+	{
+		j = 0;
+		while (vars->map[i][j])
+		{
+			c.x = j * MAP_SCALE;
+			c.y = i * MAP_SCALE;
+			if (vars->map[i][j] == '1')
+				ft_square_put_to_image(vars, floor_color, c, MAP_SCALE);
+			else
+				ft_square_put_to_image(vars, wall_color, c, MAP_SCALE);
+			j++;
+		}
+		i++;
+	}
 }

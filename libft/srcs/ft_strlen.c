@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pixel_put_to_image.c                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 20:59:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 14:54:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/04/19 05:11:17 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/04/19 05:29:12 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c)
+size_t	ft_strlen(const char *str)
 {
-	((int *)vars->image_buffer->data)[c.y * vars->width + c.x] = color;
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
+
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	printf("len = %d\n", ft_strlen("bonjour"));
+// 	return (0);
+// }
