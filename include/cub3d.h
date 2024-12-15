@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:11:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:02:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 
 # define LITTLE_ENDIAN 0
 
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define MAP_SCALE 20
 # define PLAYER_SIZE 5
 
@@ -75,10 +77,17 @@ typedef struct s_cordinate
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 	float	angle_rad;
 }	t_player;
+
+typedef struct s_ray
+{
+	t_img	*img; // 描画するべきimage
+	int		x; // imageのx番目の列のピクセルたちを持ってくる
+	float	rate; // 描画する先の長さの画面に対する割合(1より小さかったらスクリーンよりも遠い)
+}	t_ray;
 
 typedef struct s_vars
 {
@@ -92,7 +101,12 @@ typedef struct s_vars
 	long		last_calc_time;
 	long		last_disp_time;
 	char		**map;
+	t_img		*north;
+	t_img		*east;
+	t_img		*west;
+	t_img		*south;
 	int			keys[KEY_NUM];
+	t_ray		rays[WINDOW_WIDTH];
 }	t_vars;
 
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
@@ -105,7 +119,6 @@ void	draw_floor(t_vars *vars, int color);
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	end(t_vars *vars, int status);
-// int		key_hook(int keycode, t_vars *vars);
 int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);
 int		key_press(int key, t_vars *vars);

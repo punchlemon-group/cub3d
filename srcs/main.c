@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:28:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:03:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@ int	check_args(int argc, char **argv)
 	if (*(argv[1]) != 'a') // ファイルが開けるかどうかチェックする
 		return (printf("Invalid args\n"), END);
 	return (CNT);
+}
+
+void	create_tiles(t_vars *vars)
+{
+	int	width;
+	int	height;
+
+	vars->east = NULL;
+	vars->west = NULL;
+	vars->south = NULL;
+	vars->north = mlx_xpm_file_to_image(vars->mlx, "texture/mario.xpm",
+		&width, &height);
+	if (!vars->north)
+		end(vars, 0);
+	vars->east = mlx_xpm_file_to_image(vars->mlx, "texture/oak_log.xpm",
+		&width, &height);
+	if (!vars->east)
+		end(vars, 0);
+	vars->west = mlx_xpm_file_to_image(vars->mlx, "texture/pierre_moussu.xpm",
+		&width, &height);
+	if (!vars->west)
+		end(vars, 0);
+	vars->south = mlx_xpm_file_to_image(vars->mlx, "texture/renga.xpm",
+		&width, &height);
+	if (!vars->south)
+		end(vars, 0);
 }
 
 int	init(t_vars *vars)
@@ -113,15 +139,13 @@ int	main(int argc, char **argv)
 		return (END);
 	if (init(&vars) == END)
 		return (END);
+	create_tiles(&vars);
 	vars.map = get_map(vars.addr);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
 	mlx_hook(vars.win, KEY_RELEASE, 1L << 1, key_release, &vars);
-
 	mlx_hook(vars.win, X_BUTTON, 0, window_close, &vars); // Xボタンに対応
-
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
-
 	mlx_loop(vars.mlx);
 	return (0);
 }
