@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rectangle_put_to_image.c                        :+:      :+:    :+:   */
+/*   draw_floor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/15 14:50:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:12:36 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/15 16:07:31 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/15 16:13:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
-	t_cordinate len)
+void	draw_floor(t_vars *vars, int color)
 {
-	int	i;
-	int	j;
-	int	*image_buffer;
+	t_cordinate	c;
+	t_cordinate len;
 
-	image_buffer = (int *)vars->image_buffer->data;
-	i = 0;
-	while (i < len.y)
-	{
-		j = 0;
-		while (j < len.x)
-		{
-			image_buffer[(c.y + i) * vars->width + (c.x + j)] = color;
-			j++;
-		}
-		i++;
-	}
+	c.x = 0;
+	c.y = vars->height / 2;
+	len.x = vars->width;
+	len.y = vars->height / 2;
+	ft_rectangle_put_to_image(vars, color, c, len);
 }

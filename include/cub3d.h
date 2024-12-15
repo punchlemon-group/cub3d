@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:03:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:11:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a);
 void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 	t_cordinate len);
+void	draw_ceiling(t_vars *vars, int color);
+void	draw_floor(t_vars *vars, int color);
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	end(t_vars *vars, int status);

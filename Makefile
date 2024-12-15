@@ -23,6 +23,8 @@ WHITE = \033[37m
 SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
+		draw_ceiling \
+		draw_floor \
 		draw_player_2d \
 		draw_map_2d \
 		end \
