@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:24:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:00:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	loop_hook(t_vars *vars)
 	player_rotate(vars);
 	gettimeofday(&tv, NULL);
 	tmp = tv.tv_sec * 1000000 + tv.tv_usec;
-	// if (vars->last_calc_time)
-	// 	printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
+	if (vars->last_calc_time)
+		printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
 	vars->last_calc_time = tmp;
 	if (!vars->last_disp_time || (tmp - vars->last_disp_time) > 1000000 / FPS)
 	{
@@ -95,8 +95,10 @@ int	loop_hook(t_vars *vars)
 		// 	|| (vars->keys[A_ID] != vars->keys[D_ID])
 		// 	|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
 		// 	print_player_status(vars->player);
+		// draw_ceiling(vars, 0x0000ff);
+		// draw_floor(vars, 0x0000ff);
 		draw_map_2d(vars, 0xdddddd, 0xffff00);
-		draw_player_2d(vars, 0xff0000);
+		draw_player_2d(vars, 0xff0000, 0x0000ff);
 	}
 	return (CNT);
 }

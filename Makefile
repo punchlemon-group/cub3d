@@ -28,6 +28,7 @@ $(addsuffix .c, \
 		end \
 		ft_circle_put_to_image \
 		ft_pixel_put_to_image \
+		ft_rectangle_put_to_image \
 		ft_square_put_to_image \
 		key_hook \
 		loop_hook \

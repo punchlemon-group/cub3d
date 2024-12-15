@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:23:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:03:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 
 # define LITTLE_ENDIAN 0
 
-# define MAP_SCALE 50
+# define MAP_SCALE 20
+# define PLAYER_SIZE 5
 
 # define FPS 60
 
@@ -97,7 +98,9 @@ typedef struct s_vars
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
 void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a);
-void	draw_player_2d(t_vars *vars, int color);
+void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
+	t_cordinate len);
+void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	end(t_vars *vars, int status);
 // int		key_hook(int keycode, t_vars *vars);
