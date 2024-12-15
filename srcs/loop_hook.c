@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 11:11:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:14:27 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,27 @@ void	player_move(t_vars *vars)
 	}
 }
 
+void	player_rotate(t_vars *vars)
+{
+	float	speed;
+
+	speed = 0.0001;
+	if (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID])
+	{
+		if (vars->keys[RIGHT_ID])
+			vars->player.angle_rad -= speed;
+		if (vars->keys[LEFT_ID])
+			vars->player.angle_rad += speed;
+	}
+}
+
 int	loop_hook(t_vars *vars)
 {
 	struct timeval	tv;
 	long			tmp;
 
 	player_move(vars);
-	if (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID])
-	{
-		if (vars->keys[RIGHT_ID])
-			vars->player.angle_rad -= 0.0001;
-		if (vars->keys[LEFT_ID])
-			vars->player.angle_rad += 0.0001;
-	}
+	player_rotate(vars);
 	gettimeofday(&tv, NULL);
 	tmp = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (vars->last_calc_time)
