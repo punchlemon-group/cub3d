@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 21:32:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:47:22 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_vars
 	int			height;
 	t_player	player;
 	char		*addr;
+	int			**map;
 	int			keys[KEY_NUM];
 }	t_vars;
 

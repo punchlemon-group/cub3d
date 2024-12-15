@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 18:32:27by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:47:44 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 int	check_args(int argc, char **argv)
 {
@@ -21,7 +22,7 @@ int	check_args(int argc, char **argv)
 	return (CNT);
 }
 
-int	init(t_vars *vars)
+int	init(t_vars *vars, int **map)
 {
 	int	i;
 
@@ -41,6 +42,7 @@ int	init(t_vars *vars)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
 	vars->addr = "./maps/test.ber";
+	vars->map = map; // 本当はvars->addrから展開する関数を呼び出す
 	vars->player.x = 6;
 	vars->player.y = 6;
 	vars->player.angle_rad = 0;
@@ -50,10 +52,21 @@ int	init(t_vars *vars)
 int	main(int argc, char **argv)
 {
 	t_vars		vars;
+	static int	map[8][8] =
+	{
+		{1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1},
+	};
 
 	if (check_args(argc, argv) == END)
 		return (END);
-	if (init(&vars) == END)
+	if (init(&vars, map) == END)
 		return (END);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
