@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 13:07:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:40:31 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void	player_rotate(t_vars *vars)
 			vars->player.angle_rad -= ROTATE_SPEED;
 		if (vars->keys[LEFT_ID])
 			vars->player.angle_rad += ROTATE_SPEED;
+		if (vars->player.angle_rad > (2 * PI))
+			vars->player.angle_rad -= (2 * PI);
+		else if (vars->player.angle_rad < (-2 * PI))
+			vars->player.angle_rad += (2 * PI);
 	}
 }
 
