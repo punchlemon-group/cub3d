@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 11:44:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:07:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,18 @@ void	player_rotate(t_vars *vars)
 	}
 }
 
+void	cast_rays(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		vars->rays[i].rate = 1; // here should be calculated
+		i++;
+	}
+}
+
 int	loop_hook(t_vars *vars)
 {
 	struct timeval	tv;
@@ -100,10 +112,13 @@ int	loop_hook(t_vars *vars)
 			printf("\n");
 		}
 		vars->last_disp_time = vars->last_calc_time;
+		cast_rays(vars);
 		draw_ceiling(vars, 0x00aaff);
 		draw_floor(vars, 0x222222);
 		draw_map_2d(vars, 0xdddddd, 0xffff00);
 		draw_player_2d(vars, 0xff0000, 0x0000ff);
+		draw_rays_2d(vars, 0x00ff00);
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
 	}
 	vars->i++;
 	return (CNT);

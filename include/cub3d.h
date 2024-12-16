@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 11:46:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:15:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define PLAYER_SIZE 5
 
 # define FPS 60
+
+# define VIEWING_ANGLE_RAD PI / 3
 
 # define MOVE_SPEED 0.0002
 # define ROTATE_SPEED 0.0004
@@ -120,8 +122,9 @@ void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 	t_cordinate len);
 void	draw_ceiling(t_vars *vars, int color);
 void	draw_floor(t_vars *vars, int color);
-void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
+void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
+void	draw_rays_2d(t_vars *vars, int color);
 void	end(t_vars *vars, int status);
 int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);

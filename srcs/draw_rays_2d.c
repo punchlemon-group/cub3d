@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_player_2d.c                                   :+:      :+:    :+:   */
+/*   draw_rays_2d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:49:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 12:53:21 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/16 12:50:30 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/16 13:24:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player_2d(t_vars *vars, int base_color, int nose_color)
+void	draw_rays_2d(t_vars *vars, int color)
 {
 	t_cordinate	c;
+	float		angle;
+	int			i;
 
-	c.x = vars->player.x * MAP_SCALE;
-	c.y = vars->player.y * MAP_SCALE;
-	ft_circle_put_to_image(vars, base_color, c, PLAYER_SIZE);
-	c.x -= PLAYER_SIZE * sin(vars->player.angle_rad);
-	c.y -= PLAYER_SIZE * cos(vars->player.angle_rad);
-	ft_circle_put_to_image(vars, nose_color, c, PLAYER_SIZE / 2);
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		angle = vars->player.angle_rad
+			+ VIEWING_ANGLE_RAD * (i / (float)WINDOW_WIDTH - 0.5);
+		c.x = MAP_SCALE * (vars->rays[i].rate * -sin(angle) + vars->player.x);
+		c.y = MAP_SCALE * (vars->rays[i].rate * -cos(angle) + vars->player.y);
+		ft_pixel_put_to_image(vars, color, c);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 11:09:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:20:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ void	create_tiles(t_vars *vars)
 		end(vars, 0);
 }
 
+void	init_rays(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		vars->rays[i].rate = 1;
+		vars->rays[i].img = NULL;
+		vars->rays[i].x = 0;
+		i++;
+	}
+}
+
 int	init(t_vars *vars)
 {
 	int	i;
@@ -68,8 +82,8 @@ int	init(t_vars *vars)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
 	vars->addr = "maps/test.ber";
-	vars->player.x = 1.5;
-	vars->player.y = 1.5;
+	vars->player.x = 5;
+	vars->player.y = 5;
 	vars->player.angle_rad = 0;
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
