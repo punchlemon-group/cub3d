@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 13:40:31 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:17:29 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,6 @@ void	player_rotate(t_vars *vars)
 			vars->player.angle_rad -= (2 * PI);
 		else if (vars->player.angle_rad < (-2 * PI))
 			vars->player.angle_rad += (2 * PI);
-	}
-}
-
-void	cast_rays(t_vars *vars)
-{
-	int	i;
-
-	i = 0;
-	while (i < WINDOW_WIDTH)
-	{
-		vars->rays[i].rate = 1; // here should be calculated
-		i++;
 	}
 }
 

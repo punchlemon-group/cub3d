@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rays_2d.c                                     :+:      :+:    :+:   */
+/*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 12:50:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 13:52:35 by retanaka         ###   ########.fr       */
+/*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/12/16 15:17:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_rays_2d(t_vars *vars, int color)
+void	cast_rays(t_vars *vars)
 {
-	t_cordinate	c;
+	int	len;
 	float		angle;
-	int			i;
+	int	i;
 
 	i = 0;
+	(void)len;
 	angle = vars->player.angle_rad + VIEWING_ANGLE_RAD / 2;
 	while (i < WINDOW_WIDTH)
 	{
-		c.x = MAP_SCALE * (-sin(angle) / vars->rays[i].rate + vars->player.x);
-		c.y = MAP_SCALE * (-cos(angle) / vars->rays[i].rate + vars->player.y);
-		ft_pixel_put_to_image(vars, color, c);
+		vars->rays[i].rate = 1; // here should be calculated
 		angle -= VIEWING_ANGLE_RAD / (float)WINDOW_WIDTH;
 		i++;
 	}
