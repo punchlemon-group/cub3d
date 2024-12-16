@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 11:36:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:44:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ float	get_bias_rad(int *keys)
 
 void	player_move(t_vars *vars)
 {
-	float	speed;
 	float	bias_rad;
 	double	x_;
 	double	y_;
 
-	speed = 0.0001;
 	bias_rad = get_bias_rad(vars->keys);
 	if (vars->keys[W_ID] != vars->keys[S_ID]
 		|| vars->keys[A_ID] != vars->keys[D_ID])
 	{
-		x_ = vars->player.x + speed * cos(vars->player.angle_rad + bias_rad);
-		y_ = vars->player.y - speed * sin(vars->player.angle_rad + bias_rad);
+		x_ = vars->player.x
+			+ MOVE_SPEED * cos(vars->player.angle_rad + bias_rad);
+		y_ = vars->player.y
+			+ MOVE_SPEED * -sin(vars->player.angle_rad + bias_rad);
 		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する)
 		{
 			vars->player.x = x_;
@@ -71,15 +71,12 @@ void	player_move(t_vars *vars)
 
 void	player_rotate(t_vars *vars)
 {
-	float	speed;
-
-	speed = 0.0001;
 	if (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID])
 	{
 		if (vars->keys[RIGHT_ID])
-			vars->player.angle_rad -= speed;
+			vars->player.angle_rad -= ROTATE_SPEED;
 		if (vars->keys[LEFT_ID])
-			vars->player.angle_rad += speed;
+			vars->player.angle_rad += ROTATE_SPEED;
 	}
 }
 
