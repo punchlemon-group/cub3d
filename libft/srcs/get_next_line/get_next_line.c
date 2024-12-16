@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:57:18 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/05/12 13:35:13 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:32:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*all_free(char **ans, char **buf, char **mem, char flag)
+char	*all_free(char **ans, char **buf, char **mem, int flag)
 {
 	if (flag == -1 || **ans == '\0')
 	{
