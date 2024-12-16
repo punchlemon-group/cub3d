@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 17:03:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:09:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	init(t_vars *vars)
 	vars->player.angle_rad = 0;
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
+	vars->i = 0;
 	return (CNT);
 }
 

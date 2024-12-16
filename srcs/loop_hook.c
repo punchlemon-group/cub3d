@@ -6,15 +6,23 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:15:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:36:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_player_status(t_player player)
+void	print_player_status_for_dev(t_vars *vars)
 {
-	printf("x:%f, y:%f, angle_rad:%f\n", player.x, player.y, player.angle_rad);
+	t_player	p;
+
+	if ((vars->keys[W_ID] != vars->keys[S_ID])
+		|| (vars->keys[A_ID] != vars->keys[D_ID])
+		|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
+	{
+		p = vars->player;
+		printf(", x:%f, y:%f, angle_rad:%f", p.x, p.y, p.angle_rad);
+	}
 }
 
 float	get_bias_rad(int *keys)
@@ -78,27 +86,28 @@ void	player_rotate(t_vars *vars)
 int	loop_hook(t_vars *vars)
 {
 	struct timeval	tv;
-	long			tmp;
+	float			fps;
 
 	player_move(vars);
 	player_rotate(vars);
 	gettimeofday(&tv, NULL);
-	tmp = tv.tv_sec * 1000000 + tv.tv_usec;
-	// if (vars->last_calc_time)
-	// 	printf("%lfHz\n", 1000000.0 / (tmp - vars->last_calc_time));
-	vars->last_calc_time = tmp;
-	if (!vars->last_disp_time || (tmp - vars->last_disp_time) > 1000000 / FPS)
+	vars->last_calc_time = tv.tv_sec * 1000000 + tv.tv_usec;
+	fps = 1000000.0 / (vars->last_calc_time - vars->last_disp_time);
+	if (FPS > fps)
 	{
-		printf("%lfHz\n", 1000000.0 / (tmp - vars->last_disp_time));
-		vars->last_disp_time = tmp;
-		// if ((vars->keys[W_ID] != vars->keys[S_ID])
-		// 	|| (vars->keys[A_ID] != vars->keys[D_ID])
-		// 	|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
-		// 	print_player_status(vars->player);
+		if (vars->last_disp_time)
+		{
+			printf("calc: %03d times, disp: %.2f [Hz]", vars->i, fps);
+			print_player_status_for_dev(vars);
+			vars->i = 0;
+			printf("\n");
+		}
+		vars->last_disp_time = vars->last_calc_time;
 		draw_ceiling(vars, 0x00aaff);
 		draw_floor(vars, 0x222222);
 		draw_map_2d(vars, 0xdddddd, 0xffff00);
 		draw_player_2d(vars, 0xff0000, 0x0000ff);
 	}
+	vars->i++;
 	return (CNT);
 }

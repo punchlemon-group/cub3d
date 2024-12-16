@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 17:02:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:05:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_vars
 	t_img		*south;
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
+	int			i;
 }	t_vars;
 
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
