@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 13:20:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:29:14 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	init_rays(t_vars *vars)
 	i = 0;
 	while (i < WINDOW_WIDTH)
 	{
-		vars->rays[i].rate = 1;
 		vars->rays[i].img = NULL;
 		vars->rays[i].x = 0;
+		vars->rays[i].len = 1;
+		vars->rays[i].rate = 1;
 		i++;
 	}
 }
