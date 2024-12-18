@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 22:01:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:11:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define WINDOW_WIDTH 960
 # define WINDOW_HEIGHT 540
-# define MAP_SCALE 20
+# define MAP_SCALE 5
 # define PLAYER_SIZE 5
 
 # define EVENT_HZ 1000
@@ -46,12 +46,12 @@
 // 60 deg
 # define VIEWING_ANGLE_RAD PI / 3
 
-# define MOVE_SPEED 0.002
-# define ROTATE_SPEED 0.002
+# define MOVE_SPEED 0.005
+# define ROTATE_SPEED 0.005
 
 # define SCREEN_RATIO WINDOW_WIDTH / WINDOW_HEIGHT
 
-# define LIGHT_DEAD_LEN_POW_2 100
+# define LIGHT_DEAD_LEN_POW_2 900
 
 # include "libft.h"
 # include "get_next_line.h"
