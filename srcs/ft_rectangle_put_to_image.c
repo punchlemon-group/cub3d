@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:50:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:12:36 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:54:54 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 		j = 0;
 		while (j < len.x)
 		{
-			image_buffer[(c.y + i) * vars->width + (c.x + j)] = color;
+			image_buffer[(c.y + i) * WINDOW_WIDTH + (c.x + j)] = color;
 			j++;
 		}
 		i++;

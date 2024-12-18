@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 13:09:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:55:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ typedef struct s_vars
 	void		*mlx;
 	void		*win;
 	t_img		*image_buffer;
-	int			width;
-	int			height;
 	t_player	player;
 	char		*addr;
 	long		last_calc_time;

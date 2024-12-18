@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 14:20:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:00:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,55 @@ int	init(t_vars *vars)
 	i = 0;
 	while (i < KEY_NUM)
 		vars->keys[i++] = 0;
-	vars->width = 1920;
-	vars->height = 1080;
 	vars->mlx = mlx_init();
 	if (!vars->mlx)
 		return (END);
-	vars->win = mlx_new_window(vars->mlx, vars->width, vars->height, "cub3d");
+	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
 	if (!vars->win)
 		return (mlx_destroy_display(vars->mlx), END);
-	vars->image_buffer = mlx_new_image(vars->mlx, vars->width, vars->height);
+	vars->image_buffer = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!vars->image_buffer)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
 	vars->addr = "maps/test.ber";
-	vars->player.x = 5;
-	vars->player.y = 5;
-	vars->player.angle_rad = PI;
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	vars->i = 0;
 	vars->event_count = 0;
 	vars->event_delta_sum = 0;
 	return (CNT);
+}
+
+void	get_player(t_vars *vars)
+{
+	char	c;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (vars->map[i])
+	{
+		j = 0;
+		while (vars->map[i][j])
+		{
+			c = vars->map[i][j];
+			if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
+			{
+				vars->player.x = j;
+				vars->player.y = i;
+				if (c == 'N')
+					vars->player.angle_rad = 0;
+				else if (c == 'E')
+					vars->player.angle_rad = 3 * PI / 2;
+				else if (c == 'W')
+					vars->player.angle_rad = PI / 2;
+				else if (c == 'S')
+					vars->player.angle_rad = PI;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 char	*ft_join_and_free(char *s1, char *s2)
@@ -158,6 +185,7 @@ int	main(int argc, char **argv)
 		return (END);
 	create_tiles(&vars);
 	vars.map = get_map(vars.addr);
+	get_player(&vars);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
 	mlx_hook(vars.win, KEY_RELEASE, 1L << 1, key_release, &vars);

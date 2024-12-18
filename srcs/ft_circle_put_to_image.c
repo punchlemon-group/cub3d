@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:44:45 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:19:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:54:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r)
 		while (j <= r)
 		{
 			if (i2 + j * j < r2)
-				image[(c.y + i) * vars->width + (c.x + j)] = color;
+				image[(c.y + i) * WINDOW_WIDTH + (c.x + j)] = color;
 			j++;
 		}
 		i++;

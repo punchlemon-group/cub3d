@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 14:19:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:01:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,35 @@
 
 float	get_vertical_collision_len(t_vars *vars, float angle)
 {
-	(void)vars;
-	(void)angle;
+	return (INFINITY);
+	float		d_y;
+	int			y_int;
+	int			x_int;
+	int			d_x;
+
+	if (sin(angle) > 0)
+	{
+		d_x = -1;
+		x_int = (int)vars->player.x;
+	}
+	else if (sin(angle) < 0)
+	{
+		d_x = 1;
+		x_int = (int)vars->player.x + 1;
+	}
+	else
+		return (INFINITY);
+	d_y = (x_int - vars->player.x) / tan(angle);
+	if (sin(angle) > 0)
+		x_int += d_x;
+	while (1) // you have to check segmentation fault
+	{
+		y_int = (int)(vars->player.y + d_y);
+		if (vars->map[y_int][x_int] == '1')
+			return (d_y / -cos(angle));
+		x_int += d_x;
+		d_y += d_x / tan(angle);
+	}
 	return (INFINITY);
 }
 
@@ -49,6 +76,7 @@ float	get_horizontal_collision_len(t_vars *vars, float angle)
 		y_int += d_y;
 		d_x += d_y * tan(angle);
 	}
+	return (INFINITY);
 }
 
 float	get_len(t_vars *vars, float angle)
@@ -76,6 +104,9 @@ void	cast_rays(t_vars *vars)
 	{
 		ray = &(vars->rays[i]);
 		ray->len = get_len(vars, angle);
+		printf("i:%d, len%f\n", i, ray->len);
+		if (ray->len == INFINITY || ray->len < 0)
+			ray->len = 0;
 		angle -= VIEWING_ANGLE_RAD / (float)WINDOW_WIDTH;
 		i++;
 	}
