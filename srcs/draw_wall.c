@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:32:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 21:33:18 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:55:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_line_easy_for_deb(t_vars *vars, int color, int i, float len, float ang
 	int			limit;
 	t_cordinate	c;
 	
-	limit = WINDOW_HEIGHT * (SCREEN_DEPTH / cos(angle)) / len;
+	limit = WINDOW_HEIGHT * (((float)SCREEN_RATIO * cos(VIEWING_ANGLE_RAD / 2)) / cos(angle)) / len;
 	if (limit > WINDOW_HEIGHT)
 		limit = WINDOW_HEIGHT;
 	j = (WINDOW_HEIGHT - limit) / 2;
