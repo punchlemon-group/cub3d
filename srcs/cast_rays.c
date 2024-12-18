@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/17 16:21:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:09:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	cast_rays(t_vars *vars)
 	{
 		ray = &(vars->rays[i]);
 		ray->len = get_len(vars, angle);
-		ray->rate = 1; // here should be calculated
 		angle -= VIEWING_ANGLE_RAD / (float)WINDOW_WIDTH;
 		i++;
 	}

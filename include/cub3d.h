@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 17:26:09 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:09:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_ray
 	t_img	*img; // 描画するべきimage
 	int		x; // imageのx番目の列のピクセルたちを持ってくる
 	float	len;
-	float	rate; // 描画する先の長さの画面に対する割合(1より小さかったらスクリーンよりも遠い)
 }	t_ray;
 
 typedef struct s_vars
