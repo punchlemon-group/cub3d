@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 13:09:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:20:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	init(t_vars *vars)
 	vars->addr = "maps/test.ber";
 	vars->player.x = 5;
 	vars->player.y = 5;
-	vars->player.angle_rad = 0;
+	vars->player.angle_rad = PI;
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	vars->i = 0;

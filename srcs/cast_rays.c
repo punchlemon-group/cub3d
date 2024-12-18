@@ -6,30 +6,62 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 13:09:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:19:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	get_len(t_vars *vars, float angle)
+float	get_vertical_collision_len(t_vars *vars, float angle)
 {
-	float		y_;
+	(void)vars;
+	(void)angle;
+	return (INFINITY);
+}
+
+float	get_horizontal_collision_len(t_vars *vars, float angle)
+{
 	float		d_x;
 	int			y_int;
 	int			x_int;
+	int			d_y;
 
-	y_int = (int)vars->player.y;
-	y_ = vars->player.y - y_int;
-	d_x = y_ * tan(angle);
-	while (y_int--)
+	if (cos(angle) > 0)
 	{
-		x_int = (int)(vars->player.x - d_x);
-		if (vars->map[y_int][x_int] == '1')
-			return (sqrt(pow(vars->player.y - y_int - 1, 2) + pow(d_x, 2)));
-		d_x += tan(angle);
+		d_y = -1;
+		y_int = (int)vars->player.y;
 	}
-	return (0);
+	else if (cos(angle) < 0)
+	{
+		d_y = 1;
+		y_int = (int)vars->player.y + 1;
+	}
+	else
+		return (INFINITY);
+	d_x = (y_int - vars->player.y) * tan(angle);
+	if (cos(angle) > 0)
+		y_int += d_y;
+	while (1) // you have to check segmentation fault
+	{
+		x_int = (int)(vars->player.x + d_x);
+		if (vars->map[y_int][x_int] == '1')
+			return (d_x / -sin(angle));
+		y_int += d_y;
+		d_x += d_y * tan(angle);
+	}
+}
+
+float	get_len(t_vars *vars, float angle)
+{
+	float	horizontal_len;
+	float	vertical_len;
+
+	horizontal_len = get_horizontal_collision_len(vars, angle);
+	vertical_len = get_vertical_collision_len(vars, angle);
+	if (horizontal_len < vertical_len)
+		return (horizontal_len);
+	else
+		return (vertical_len);
 }
 
 void	cast_rays(t_vars *vars)
