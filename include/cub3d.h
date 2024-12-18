@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 21:29:23 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:33:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 // 1920 / 1080 / 2 * sqrt(3)
 # define SCREEN_DEPTH 1.53960072
 
-# define LIGHT_DEAD_LEN 5
+# define LIGHT_DEAD_LEN_POW_2 100
 
 # include "libft.h"
 # include "get_next_line.h"

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:32:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 21:29:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:33:18 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	dark_color(int color, float len)
 	int r = (color >> 16) & 0xFF;
 	int g = (color >> 8) & 0xFF;
 	int b = color & 0xFF;
-	rate = (LIGHT_DEAD_LEN - len) / LIGHT_DEAD_LEN;
+	rate = (LIGHT_DEAD_LEN_POW_2 - pow(len, 2)) / LIGHT_DEAD_LEN_POW_2;
 	if (rate < 0)
 		rate = 0;
 	r = (int)(r * rate);
