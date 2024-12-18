@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 14:55:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:06:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_vars
 	long		last_calc_time;
 	long		last_disp_time;
 	char		**map;
+	int			map_width;
+	int			map_height;
 	t_img		*north;
 	t_img		*east;
 	t_img		*west;

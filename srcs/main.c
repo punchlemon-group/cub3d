@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 15:00:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:09:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,23 @@ int	init(t_vars *vars)
 	return (CNT);
 }
 
+void	get_map_size(t_vars *vars)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (vars->map[i])
+	{
+		j = 0;
+		while (vars->map[i][j])
+			j++;
+		i++;
+	}
+	vars->map_width = j;
+	vars->map_height = i;
+}
+
 void	get_player(t_vars *vars)
 {
 	char	c;
@@ -113,6 +130,7 @@ void	get_player(t_vars *vars)
 					vars->player.angle_rad = PI / 2;
 				else if (c == 'S')
 					vars->player.angle_rad = PI;
+				break ;
 			}
 			j++;
 		}
@@ -185,6 +203,7 @@ int	main(int argc, char **argv)
 		return (END);
 	create_tiles(&vars);
 	vars.map = get_map(vars.addr);
+	get_map_size(&vars);
 	get_player(&vars);
 
 	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
