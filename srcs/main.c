@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 15:09:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:36:35 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	get_player(t_vars *vars)
 			c = vars->map[i][j];
 			if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
 			{
-				vars->player.x = j;
-				vars->player.y = i;
+				vars->player.x = j + 0.5;
+				vars->player.y = i + 0.5;
 				if (c == 'N')
 					vars->player.angle_rad = 0;
 				else if (c == 'E')
