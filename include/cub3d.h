@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 15:06:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:29:23 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@
 # define EVENT_HZ 1000
 # define FRAME_HZ 60
 
+// 60 deg
 # define VIEWING_ANGLE_RAD PI / 3
 
 # define MOVE_SPEED 0.005
 # define ROTATE_SPEED 0.01
+
+// 1920 / 1080 / 2 * sqrt(3)
+# define SCREEN_DEPTH 1.53960072
+
+# define LIGHT_DEAD_LEN 5
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -123,12 +129,14 @@ void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a);
 void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 	t_cordinate len);
+
 void	cast_rays(t_vars *vars);
 void	draw_ceiling(t_vars *vars, int color);
 void	draw_floor(t_vars *vars, int color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_rays_2d(t_vars *vars, int color);
+void	draw_wall(t_vars *vars, int color);
 void	end(t_vars *vars, int status);
 int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);

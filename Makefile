@@ -29,6 +29,7 @@ $(addsuffix .c, \
 		draw_player_2d \
 		draw_map_2d \
 		draw_rays_2d \
+		draw_wall \
 		end \
 		ft_circle_put_to_image \
 		ft_pixel_put_to_image \

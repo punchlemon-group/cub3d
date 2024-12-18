@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 17:32:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:38:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	loop_hook(t_vars *vars)
 		cast_rays(vars);
 		draw_ceiling(vars, 0x00aaff);
 		draw_floor(vars, 0x222222);
+		draw_wall(vars, 0xff0000);
 		draw_map_2d(vars, 0xdddddd, 0xffff00);
 		draw_player_2d(vars, 0xff0000, 0x0000ff);
 		draw_rays_2d(vars, 0x00ff00);
