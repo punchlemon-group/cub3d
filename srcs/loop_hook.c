@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 15:17:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:32:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,36 @@ void	player_rotate(t_vars *vars)
 int	loop_hook(t_vars *vars)
 {
 	struct timeval	tv;
-	float			fps;
+	long			now;
+	float			frame_delta;
+	float			event_delta;
 
-	player_move(vars);
-	player_rotate(vars);
 	gettimeofday(&tv, NULL);
-	vars->last_calc_time = tv.tv_sec * 1000000 + tv.tv_usec;
-	fps = 1000000.0 / (vars->last_calc_time - vars->last_disp_time);
-	if (FPS > fps)
+	now = tv.tv_sec * 1000000 + tv.tv_usec;
+	event_delta = 1000000.0 / (now - vars->last_calc_time);
+	if (EVENT_HZ > event_delta)
+	{
+		// printf("event_delta %.2f\n", event_delta);
+		vars->event_delta_sum += event_delta;
+		vars->event_count++;
+		vars->last_calc_time = now;
+		player_move(vars);
+		player_rotate(vars);
+	}
+	frame_delta = 1000000.0 / (now - vars->last_disp_time);
+	if (FRAME_HZ > frame_delta)
 	{
 		if (vars->last_disp_time)
 		{
-			printf("calc: %03d times, disp: %.2f [Hz]", vars->i, fps);
+			printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
+				vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
 			print_player_status_for_dev(vars);
 			vars->i = 0;
+			vars->event_count = 0;
+			vars->event_delta_sum = 0;
 			printf("\n");
 		}
-		vars->last_disp_time = vars->last_calc_time;
+		vars->last_disp_time = now;
 		cast_rays(vars);
 		draw_ceiling(vars, 0x00aaff);
 		draw_floor(vars, 0x222222);

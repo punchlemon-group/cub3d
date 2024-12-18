@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/17 15:28:44 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:26:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@
 # define MAP_SCALE 20
 # define PLAYER_SIZE 5
 
-# define FPS 60
+# define EVENT_HZ 1000
+# define FRAME_HZ 60
 
 # define VIEWING_ANGLE_RAD PI / 3
 
-# define MOVE_SPEED 0.0001
-# define ROTATE_SPEED 0.0002
+# define MOVE_SPEED 0.005
+# define ROTATE_SPEED 0.01
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -114,6 +115,8 @@ typedef struct s_vars
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
 	int			i;
+	float		event_delta_sum;
+	int			event_count;
 }	t_vars;
 
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/17 15:29:14 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:26:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	init(t_vars *vars)
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	vars->i = 0;
+	vars->event_count = 0;
+	vars->event_delta_sum = 0;
 	return (CNT);
 }
 
