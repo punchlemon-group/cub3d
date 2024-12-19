@@ -1,0 +1,33 @@
+/* XPM */
+static char *_393367fcc084f21f5f2d341824eb097UrJA7GnmEZrhKGui[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 11 1 ",
+"  c #686868",
+". c #6D6D6D",
+"X c #727272",
+"o c #777777",
+"O c #7B7B7B",
+"+ c #7C7C7C",
+"@ c gray51",
+"# c gray52",
+"$ c #8B8B8B",
+"% c gray56",
+"& c gray57",
+/* pixels */
+"@oooo@$$.%@oooo+",
+"@+####OoX$$$XOOo",
+"@.oX Xoo$o++@$++",
+"@#+OO.O#@OOOOOOO",
+"#$$ooXoooo$%%%$.",
+"+O@++ooOO.+@OOXO",
+"%$+++o$$+O++$$#.",
+"@@+oooooX.oooo@@",
+"#$$X#oO+O#$$$$$%",
+"@oooXooO ++ooo$@",
+"++#oX#$o.O#$#+@+",
+".O++X++@%%@+@%$.",
+"+OOOoOoo#$ooooO+",
+"#$%%%$+Xoo o++$%",
+"@++oXOoo++#$+oo+",
+"@++OX%&####++O##"
+};

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 02:48:58 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/20 02:32:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	create_tiles(t_vars *vars)
 	vars->east = NULL;
 	vars->west = NULL;
 	vars->south = NULL;
-	vars->north = mlx_xpm_file_to_image(vars->mlx, "texture/mario.xpm",
+	vars->north = mlx_xpm_file_to_image(vars->mlx, "texture/isi.xpm",
 		&width, &height);
 	if (!vars->north)
 		end(vars, 0);
-	vars->east = mlx_xpm_file_to_image(vars->mlx, "texture/oak_log.xpm",
+	vars->east = mlx_xpm_file_to_image(vars->mlx, "texture/koke_isirenga.xpm",
 		&width, &height);
 	if (!vars->east)
 		end(vars, 0);
-	vars->west = mlx_xpm_file_to_image(vars->mlx, "texture/pierre_moussu.xpm",
+	vars->west = mlx_xpm_file_to_image(vars->mlx, "texture/koke_maruisi.xpm",
 		&width, &height);
 	if (!vars->west)
 		end(vars, 0);
-	vars->south = mlx_xpm_file_to_image(vars->mlx, "texture/renga.xpm",
+	vars->south = mlx_xpm_file_to_image(vars->mlx, "texture/kuro_isirenga.xpm",
 		&width, &height);
 	if (!vars->south)
 		end(vars, 0);
