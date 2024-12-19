@@ -31,8 +31,8 @@
 
 # define LITTLE_ENDIAN 0
 
-# define WINDOW_WIDTH 960
-# define WINDOW_HEIGHT 540
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define MAP_SCALE 10
 # define PLAYER_SIZE 5
 
