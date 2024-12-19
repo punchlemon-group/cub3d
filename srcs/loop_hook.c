@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 16:15:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:16:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,6 @@ void	player_rotate(t_vars *vars)
 		else if (vars->player.angle_rad < (-2 * PI))
 			vars->player.angle_rad += (2 * PI);
 	}
-}
-
-long	gettime(void)
-{
-	long			now;
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	now = tv.tv_sec * 1000000 + tv.tv_usec;
-	return (now);
 }
 
 int	loop_hook(t_vars *vars)

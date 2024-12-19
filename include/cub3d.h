@@ -152,6 +152,7 @@ void	draw_rays_2d(t_vars *vars, int color);
 void	draw_wall(t_vars *vars);
 void	end(t_vars *vars, int status);
 int		get_img_color(t_img *img, int x, int y);
+long	gettime(void);
 int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);
 int		key_press(int key, t_vars *vars);
