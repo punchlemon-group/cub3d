@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:32:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 08:33:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:09:22 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,23 @@ void	draw_horizontal_line_easy_for_deb(t_vars *vars, int i, t_ray ray, float ang
 	limit = WINDOW_HEIGHT * (((float)SCREEN_RATIO * cos(VIEWING_HORIZONTAL_ANGLE_RAD / 2)) / cos(angle)) / ray.len;
 	head.x = i;
 	head.y = (WINDOW_HEIGHT - limit) / 2;
-	y = head.y;
 	d_y = (float)limit / (float)ray.img->height;
-	j = 0;
+	if (head.y < 0)
+	{
+		j = (int)(-(float)head.y / d_y);
+		head.y += (int)((float)j * d_y);
+	}
+	else
+		j = 0;
+	y = (float)(WINDOW_HEIGHT - limit) / 2.0 + (float)(j + 1) * d_y;
 	while (j < (ray.img->height))
 	{
 		if (head.y >= WINDOW_HEIGHT)
 			return ;
-		y += d_y;
 		if (draw_cell(vars, dark_color(get_img_color(ray.img, ray.x, j), ray.len), head, (int)y) == END)
 			return ;
 		head.y = (int)y;
+		y += d_y;
 		j++;
 	}
 }
