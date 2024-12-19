@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 17:06:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:14:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ float	get_bias_rad(int *keys)
 		if (keys[A_ID])
 			bias_rad += PI;
 		if (keys[W_ID] != keys[S_ID])
+		{
 			bias_rad = bias_rad / 2.0;
+			if (keys[S_ID] && keys[D_ID])
+				bias_rad = -PI / 4;
+		}
 	}
 	return (bias_rad);
 }
