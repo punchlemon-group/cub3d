@@ -26,8 +26,6 @@ $(addsuffix .c, \
 		cast_rays \
 		dark_color \
 		draw_background \
-		draw_ceiling \
-		draw_floor \
 		draw_player_2d \
 		draw_map_2d \
 		draw_rays_2d \
@@ -37,6 +35,7 @@ $(addsuffix .c, \
 		ft_pixel_put_to_image \
 		ft_rectangle_put_to_image \
 		ft_square_put_to_image \
+		get_img_color \
 		key_hook \
 		loop_hook \
 		main \

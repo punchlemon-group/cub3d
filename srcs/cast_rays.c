@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 03:48:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 07:48:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_ray	get_vertical_collision_len(t_vars *vars, float angle)
 			return (result.len = INFINITY, result);
 		if (vars->map[y_int][x_int] == '1')
 		{
-			result.x = (int)((vars->player.y + d_y - y_int) * (result.img->size_line / sizeof(int)));
+			result.x = (int)((vars->player.y + d_y - y_int) * (result.img->width));
 			result.len = d_y / -cos(angle);
 			return (result);
 		}
@@ -88,7 +88,7 @@ t_ray	get_horizontal_collision_len(t_vars *vars, float angle)
 			return (result.len = INFINITY, result);
 		if (vars->map[y_int][x_int] == '1')
 		{
-			result.x = (int)((vars->player.x + d_x - x_int) * (result.img->size_line / sizeof(int)));
+			result.x = (int)((vars->player.x + d_x - x_int) * (result.img->width));
 			result.len = d_x / -sin(angle);
 			return (result);
 		}

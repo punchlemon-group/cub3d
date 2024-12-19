@@ -146,13 +146,12 @@ void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 void	cast_rays(t_vars *vars);
 int		dark_color(int color, float len);
 void	draw_background(t_vars *vars, int ceiling_color, int floor_color);
-void	draw_ceiling(t_vars *vars, int color);
-void	draw_floor(t_vars *vars, int color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_rays_2d(t_vars *vars, int color);
-void	draw_wall(t_vars *vars, int color);
+void	draw_wall(t_vars *vars);
 void	end(t_vars *vars, int status);
+int		get_img_color(t_img *img, int x, int y);
 int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);
 int		key_press(int key, t_vars *vars);

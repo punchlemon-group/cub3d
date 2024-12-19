@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 04:51:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:17:00 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	loop_hook(t_vars *vars)
 		vars->last_disp_time = now;
 		cast_rays(vars);
 		draw_background(vars, 0x36300c, 0x222222);
-		draw_wall(vars, 0x5f5025);
+		draw_wall(vars);
 		// draw_map_2d(vars, 0xdddddd, 0xffff00);
 		draw_player_2d(vars, 0xffff00, 0xff0000);
 		draw_rays_2d(vars, 0x00ff00);
