@@ -48,7 +48,7 @@
 # define MOVE_SPEED 0.005
 # define ROTATE_SPEED 0.002
 
-# define LIGHT_DEAD_LEN_POW_2 100
+# define LIGHT_DEAD_LEN_POW_2 225
 
 # define PLAYER_HEIGHT 1.75
 # define MAX_JUMP_HEIGHT 0.3
