@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 02:32:29 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ void	cast_rays(t_vars *vars)
 	t_ray		*ray;
 
 	i = 0;
-	angle = vars->player.angle_rad + VIEWING_ANGLE_RAD / 2;
+	angle = vars->player.angle_rad + VIEWING_HORIZONTAL_ANGLE_RAD / 2;
 	while (i < WINDOW_WIDTH)
 	{
 		ray = &(vars->rays[i]);
 		ray->len = get_len(vars, angle);
 		if (ray->len == INFINITY || ray->len < 0)
 			ray->len = 0;
-		angle -= VIEWING_ANGLE_RAD / (float)WINDOW_WIDTH;
+		angle -= VIEWING_HORIZONTAL_ANGLE_RAD / (float)WINDOW_WIDTH;
 		i++;
 	}
 }

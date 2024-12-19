@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:18:03 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/14 18:56:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:48:22 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	key_press(int key, t_vars *vars)
 		vars->keys[RIGHT_ID] = 1;
 	else if (key == LEFT)
 		vars->keys[LEFT_ID] = 1;
+	else if (key == UP && (vars->keys[UP_ID] == 0 || vars->keys[UP_ID] == 1))
+		vars->keys[UP_ID]++;
+	else if (key == DOWN
+		&& (vars->keys[DOWN_ID] == 0 || vars->keys[DOWN_ID] == 1))
+		vars->keys[DOWN_ID] = 1;
 	return (CNT);
 }
 
@@ -45,5 +50,9 @@ int	key_release(int key, t_vars *vars)
 		vars->keys[RIGHT_ID] = 0;
 	else if (key == LEFT)
 		vars->keys[LEFT_ID] = 0;
+	else if (key == UP)
+		vars->keys[UP_ID] = 0;
+	else if (key == DOWN)
+		vars->keys[DOWN_ID] = 0;
 	return (CNT);
 }

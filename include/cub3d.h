@@ -14,9 +14,9 @@
 # define CUB3D_H
 
 # define ESC 65307
-// # define UP 65362
+# define UP 65362
 # define LEFT 65361
-// # define DOWN 65364
+# define DOWN 65364
 # define RIGHT 65363
 # define W 119
 # define A 97
@@ -27,11 +27,7 @@
 
 # define P 4
 
-# define KEY_PRESS 2
-# define KEY_RELEASE 3
-# define X_BUTTON 17
-
-# define KEY_NUM 6
+# define KEY_NUM 8
 
 # define LITTLE_ENDIAN 0
 
@@ -43,15 +39,23 @@
 # define EVENT_HZ 1000
 # define FRAME_HZ 60
 
+# define SCREEN_RATIO ((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT)
+
 // 60 deg
-# define VIEWING_ANGLE_RAD PI / 3
+# define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
+# define VIEWING_VERTICAL_ANGLE_RAD (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
 
 # define MOVE_SPEED 0.005
 # define ROTATE_SPEED 0.002
 
-# define SCREEN_RATIO WINDOW_WIDTH / WINDOW_HEIGHT
+# define LIGHT_DEAD_LEN_POW_2 100
 
-# define LIGHT_DEAD_LEN_POW_2 900
+# define PLAYER_HEIGHT 1.75
+# define MAX_JUMP_HEIGHT 0.3
+# define BLOCK_HEIGHT 2.5
+
+# define JUMP_TIME 0.2
+# define JUMP_FRAME (int)(JUMP_TIME * FRAME_HZ)
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -74,10 +78,18 @@ enum
 {
 	LEFT_ID = 0,
 	RIGHT_ID,
+	UP_ID,
+	DOWN_ID,
 	W_ID,
 	A_ID,
 	S_ID,
 	D_ID,
+};
+
+enum
+{
+	NORMAL = 0,
+	JUMP,
 };
 
 typedef struct s_cordinate
@@ -90,7 +102,9 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	z;
 	float	angle_rad;
+	int		status;
 }	t_player;
 
 typedef struct s_ray
@@ -130,6 +144,8 @@ void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
 	t_cordinate len);
 
 void	cast_rays(t_vars *vars);
+int		dark_color(int color, float len);
+void	draw_background(t_vars *vars, int ceiling_color, int floor_color);
 void	draw_ceiling(t_vars *vars, int color);
 void	draw_floor(t_vars *vars, int color);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);

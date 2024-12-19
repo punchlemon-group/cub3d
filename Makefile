@@ -24,6 +24,8 @@ SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		cast_rays \
+		dark_color \
+		draw_background \
 		draw_ceiling \
 		draw_floor \
 		draw_player_2d \

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 21:36:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/19 02:48:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void	get_player(t_vars *vars)
 			{
 				vars->player.x = j + 0.5;
 				vars->player.y = i + 0.5;
+				vars->player.z = PLAYER_HEIGHT;
+				vars->player.status = NORMAL;
 				if (c == 'N')
 					vars->player.angle_rad = 0;
 				else if (c == 'E')
@@ -206,9 +208,9 @@ int	main(int argc, char **argv)
 	get_map_size(&vars);
 	get_player(&vars);
 
-	mlx_hook(vars.win, KEY_PRESS, 1L << 0, key_press, &vars);
-	mlx_hook(vars.win, KEY_RELEASE, 1L << 1, key_release, &vars);
-	mlx_hook(vars.win, X_BUTTON, 0, window_close, &vars); // Xボタンに対応
+	mlx_hook(vars.win, KeyPress, KeyPressMask, key_press, &vars);
+	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_release, &vars);
+	mlx_hook(vars.win, DestroyNotify, NoEventMask, window_close, &vars);
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
