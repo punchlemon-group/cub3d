@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:18:03 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 23:48:22 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:15:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_press(int key, t_vars *vars)
 {
 	if (key == ESC)
-		return (end(vars, 0), END);
+		window_close(vars);
 	else if (key == W)
 		vars->keys[W_ID] = 1;
 	else if (key == S)

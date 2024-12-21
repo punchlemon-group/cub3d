@@ -6,20 +6,20 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 12:46:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:17:37 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-int	check_args(int argc, char **argv)
+void	check_args(int argc, char **argv, t_vars *vars)
 {
+	(void)vars;
 	if (argc != 2)
-		return (printf("Invalid args\n"), END);
+		end(NULL, 0, "");
 	if (*(argv[1]) != 'a') // ファイルが開けるかどうかチェックする
-		return (printf("Invalid args\n"), END);
-	return (CNT);
+		end(NULL, 0, "");
 }
 
 void	create_tiles(t_vars *vars)
@@ -27,66 +27,66 @@ void	create_tiles(t_vars *vars)
 	int	width;
 	int	height;
 
-	vars->east = NULL;
-	vars->west = NULL;
-	vars->south = NULL;
 	vars->north = mlx_xpm_file_to_image(vars->mlx, "texture/isi.xpm",
 		&width, &height);
 	if (!vars->north)
-		end(vars, 0);
+		end(vars, 0, "");
 	vars->east = mlx_xpm_file_to_image(vars->mlx, "texture/koke_isirenga.xpm",
 		&width, &height);
 	if (!vars->east)
-		end(vars, 0);
+		end(vars, 0, "");
 	vars->west = mlx_xpm_file_to_image(vars->mlx, "texture/koke_maruisi.xpm",
 		&width, &height);
 	if (!vars->west)
-		end(vars, 0);
+		end(vars, 0, "");
 	vars->south = mlx_xpm_file_to_image(vars->mlx, "texture/kuro_isirenga.xpm",
 		&width, &height);
 	if (!vars->south)
-		end(vars, 0);
+		end(vars, 0, "");
 }
 
-void	init_rays(t_vars *vars)
-{
-	int	i;
-
-	i = 0;
-	while (i < WINDOW_WIDTH)
-	{
-		vars->rays[i].img = NULL;
-		vars->rays[i].x = 0;
-		vars->rays[i].len = 1;
-		i++;
-	}
-}
-
-int	init(t_vars *vars)
+void	set_zero(t_vars *vars)
 {
 	int	i;
 
 	i = 0;
 	while (i < KEY_NUM)
 		vars->keys[i++] = 0;
-	vars->mlx = mlx_init();
-	if (!vars->mlx)
-		return (END);
-	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
-	if (!vars->win)
-		return (mlx_destroy_display(vars->mlx), END);
-	vars->image_buffer = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!vars->image_buffer)
-		return (mlx_destroy_window(vars->mlx, vars->win),
-			mlx_destroy_display(vars->mlx), END);
-	vars->addr = "maps/test.cub";
+	vars->mlx = NULL;
+	vars->win = NULL;
+	vars->north = NULL;
+	vars->east = NULL;
+	vars->west = NULL;
+	vars->south = NULL;
+	vars->image_buffer = NULL;
+	vars->map = NULL;
+
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	vars->i = 0;
 	vars->event_count = 0;
 	vars->event_delta_sum = 0;
-	return (CNT);
 }
+
+void	init(t_vars *vars)
+{
+	vars->mlx = mlx_init();
+	if (!vars->mlx)
+		end(vars, 0, "");
+	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
+	if (!vars->win)
+		end(vars, 0, "");
+	vars->image_buffer = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!vars->image_buffer)
+		end(vars, 0, "");
+	create_tiles(vars);
+	vars->addr = "maps/test.cub";
+	vars->map = get_map(vars->addr);
+	if (!vars->map)
+		end(vars, 0, "");
+}
+
+// todo end関数のmessageを全部決める
 
 void	get_map_size(t_vars *vars)
 {
@@ -140,71 +140,13 @@ void	get_player(t_vars *vars)
 	}
 }
 
-char	*ft_join_and_free(char *s1, char *s2)
-{
-	char	*ans;
-	int		i;
-	int		j;
-
-	if (s1 == NULL)
-		return (NULL);
-	ans = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ans == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		ans[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-		ans[i++] = s2[j++];
-	ans[i] = '\0';
-	free(s1);
-	free(s2);
-	return (ans);
-}
-
-char	**get_map(char *file)
-{
-	int		fd;
-	char	*crr_line;
-	char	*linked_lines;
-	char	**map;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	linked_lines = ft_strdup("");
-	if (!linked_lines)
-		return (NULL);
-	while (1)
-	{
-		crr_line = get_next_line(fd);
-		if (crr_line == NULL)
-			break ;
-		linked_lines = ft_join_and_free(linked_lines, crr_line);
-		if (linked_lines == NULL)
-			return (NULL);
-	}
-	// get_map_handle_error(crr_line, linked_lines);
-	free(crr_line);
-	map = ft_split(linked_lines, '\n');
-	free(linked_lines);
-	return (map);
-}
-
 int	main(int argc, char **argv)
 {
 	t_vars		vars;
 
-	if (check_args(argc, argv) == END)
-		return (END);
-	if (init(&vars) == END)
-		return (END);
-	create_tiles(&vars);
-	vars.map = get_map(vars.addr);
+	set_zero(&vars);
+	check_args(argc, argv, &vars);
+	init(&vars);
 	get_map_size(&vars);
 	get_player(&vars);
 

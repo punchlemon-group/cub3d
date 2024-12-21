@@ -36,6 +36,7 @@ $(addsuffix .c, \
 		ft_rectangle_put_to_image \
 		ft_square_put_to_image \
 		get_img_color \
+		get_map \
 		gettime \
 		key_hook \
 		loop_hook \

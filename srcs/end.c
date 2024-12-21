@@ -6,23 +6,26 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:48:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 16:52:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:14:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void	free_map(char **map)
+void	free_map(t_vars *vars)
 {
 	int	i;
 
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
+	if (vars->map)
+	{
+		i = 0;
+		while (vars->map[i])
+			free(vars->map[i++]);
+		free(vars->map);
+	}
 }
 
-void	free_tiles(t_vars *vars)
+void	free_images(t_vars *vars)
 {
 	if (vars->north)
 		mlx_destroy_image(vars->mlx, vars->north);
@@ -32,21 +35,31 @@ void	free_tiles(t_vars *vars)
 		mlx_destroy_image(vars->mlx, vars->west);
 	if (vars->south)
 		mlx_destroy_image(vars->mlx, vars->south);
+	if (vars->image_buffer)
+		mlx_destroy_image(vars->mlx, vars->image_buffer);
 }
 
-void	end(t_vars *vars, int status)
+void	end(t_vars *vars, int status, const char *message)
 {
-	free_map(vars->map);
-	free_tiles(vars);
-	mlx_destroy_image(vars->mlx, vars->image_buffer);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
+	if (message)
+		printf("Error\n%s", message);
+	if (vars)
+	{
+		if (vars->mlx)
+		{
+			if (vars->win)
+				mlx_destroy_window(vars->mlx, vars->win);
+			free_images(vars);
+			mlx_destroy_display(vars->mlx);
+			free(vars->mlx);
+		}
+		free_map(vars);
+	}
 	exit(status);
 }
 
 int	window_close(t_vars *vars)
 {
-	end(vars, 0);
+	end(vars, 0, NULL);
 	return (0);
 }
