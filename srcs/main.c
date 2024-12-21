@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:17:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:33:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 void	check_args(int argc, char **argv, t_vars *vars)
 {
+	const char	*file_name;
+	size_t		len;
 	(void)vars;
 	if (argc != 2)
-		end(NULL, 0, "");
-	if (*(argv[1]) != 'a') // ファイルが開けるかどうかチェックする
+		end(NULL, 0, "Number of arguments is wrong\n");
+	file_name = argv[1];
+	len = ft_strlen(file_name);
+	if (len < 5)
+		end(NULL, 0, "Name of file is too short\n");
+	if (file_name[len - 4] != '.' || file_name[len - 3] != 'c' || file_name[len - 2] != 'u' || file_name[len - 1] != 'b')
 		end(NULL, 0, "");
 }
 
