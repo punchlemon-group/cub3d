@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:33:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:39:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	init(t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	if (!vars->mlx)
-		end(vars, 0, "");
+		end(vars, 0, "mlx_init failed\n");
 	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
 	if (!vars->win)
-		end(vars, 0, "");
+		end(vars, 0, "mlx_new_window failed\n");
 	vars->image_buffer = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!vars->image_buffer)
-		end(vars, 0, "");
+		end(vars, 0, "\"Image buffer\" was not generated\n");
 	create_tiles(vars);
 	vars->addr = "maps/test.cub";
 	vars->map = get_map(vars->addr);
