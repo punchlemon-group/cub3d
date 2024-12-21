@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/20 02:32:32 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 12:46:38 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	init(t_vars *vars)
 	if (!vars->image_buffer)
 		return (mlx_destroy_window(vars->mlx, vars->win),
 			mlx_destroy_display(vars->mlx), END);
-	vars->addr = "maps/test.ber";
+	vars->addr = "maps/test.cub";
 	vars->last_calc_time = 0;
 	vars->last_disp_time = 0;
 	vars->i = 0;
