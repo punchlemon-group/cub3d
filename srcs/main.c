@@ -6,11 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/12/21 17:41:43 by retanaka         ###   ########.fr       */
-=======
-/*   Updated: 2024/12/23 06:43:13 by retanaka         ###   ########.fr       */
->>>>>>> fb1e0612c933ed21879d3ef84a946a2a7c7eb17f
+/*   Updated: 2024/12/24 13:58:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +102,14 @@ void	set_zero(t_vars *vars)
 	vars->image_buffer = NULL;
 	vars->map = NULL;
 
-	vars->last_calc_time = 0;
-	vars->last_disp_time = 0;
+	vars->last_event_time = 0;
+	vars->last_frame_time = 0;
+	vars->last_mouse_time = 0;
 	vars->i = 0;
 	vars->event_count = 0;
 	vars->event_delta_sum = 0;
-	vars->mouse_hide = 0;
+	vars->is_in_mouse = 0;
+	vars->is_map = 0;
 }
 
 void	init(t_vars *vars)
@@ -201,7 +199,7 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.win, KeyPress, KeyPressMask, key_press, &vars);
 	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_release, &vars);
 	mlx_hook(vars.win, DestroyNotify, NoEventMask, window_close, &vars);
-	mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_move, &vars);
+	// mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);

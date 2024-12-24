@@ -6,35 +6,53 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:11:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/23 06:43:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:47:14 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	mouse_move(int x, int y, t_vars *vars)
+void	mouse_event(t_vars *vars)
 {
-	t_cordinate	old;
+	t_cordinate		new;
 
-	if (!vars->mouse_hide)
+	mlx_mouse_get_pos(vars->mlx, vars->win, &new.x, &new.y);
+	if (new.x < 0 || new.x >= WINDOW_WIDTH
+		|| new.y < 0 || new.y >= WINDOW_HEIGHT)
 	{
-		vars->mouse_hide = 1;
-		mlx_mouse_hide(vars->mlx, vars->win);
-		// mlx_mouse_move(vars->mlx, vars->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		if (vars->is_in_mouse)
+		{
+			mlx_mouse_show(vars->mlx, vars->win);
+			vars->is_in_mouse = 0;
+		}
 	}
 	else
 	{
-		old = vars->mouse;
-		vars->mouse.x = x;
-		vars->mouse.y = y;
-		vars->player.angle_rad += ROTATE_SPEED
-			* (float)(old.x - vars->mouse.x);
-		// if (x != WINDOW_WIDTH / 2 || y != WINDOW_HEIGHT / 2)
-		// 	mlx_mouse_move(vars->mlx, vars->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		if (vars->is_in_mouse)
+			player_rotate_for_mouse(vars, &new);
+		else
+		{
+			vars->is_in_mouse = 1;
+			mlx_mouse_hide(vars->mlx, vars->win);
+			mlx_mouse_move(vars->mlx, vars->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+			vars->mouse.x = WINDOW_WIDTH / 2;
+			vars->mouse.y = WINDOW_HEIGHT / 2;
+		}
 	}
-	while (vars->player.angle_rad < 0)
-		vars->player.angle_rad += TPI;
-	while (vars->player.angle_rad >= TPI)
-		vars->player.angle_rad -= TPI;
-	return (0);
+}
+
+void	player_rotate_for_mouse(t_vars *vars, t_cordinate *new)
+{
+	if (new->x != WINDOW_WIDTH / 2 || new->y != WINDOW_HEIGHT / 2)
+	{
+		vars->player.angle_rad += MOUSE_ROTATE_SPEED
+			* (float)(vars->mouse.x - new->x);
+		mlx_mouse_move(vars->mlx, vars->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		vars->mouse.x = WINDOW_WIDTH / 2;
+		vars->mouse.y = WINDOW_HEIGHT / 2;
+		while (vars->player.angle_rad < 0)
+			vars->player.angle_rad += TPI;
+		while (vars->player.angle_rad >= TPI)
+			vars->player.angle_rad -= TPI;
+	}
 }

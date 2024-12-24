@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 18:15:40 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:02:34 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ float	get_bias_rad(int *keys)
 	return (bias_rad);
 }
 
-void	player_move(t_vars *vars, float event_delta)
+void	player_move(t_vars *vars, float key_delta)
 {
 	float	bias_rad;
 	double	x_;
@@ -62,9 +62,9 @@ void	player_move(t_vars *vars, float event_delta)
 		|| vars->keys[A_ID] != vars->keys[D_ID])
 	{
 		x_ = vars->player.x + MOVE_SPEED
-			* cos(vars->player.angle_rad + bias_rad) * (float)EVENT_HZ / event_delta;
+			* cos(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
 		y_ = vars->player.y + MOVE_SPEED
-			* -sin(vars->player.angle_rad + bias_rad) * (float)EVENT_HZ / event_delta;
+			* -sin(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
 		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する)
 		{
 			vars->player.x = x_;
@@ -73,14 +73,14 @@ void	player_move(t_vars *vars, float event_delta)
 	}
 }
 
-void	player_rotate(t_vars *vars, float event_delta)
+void	player_rotate_for_key(t_vars *vars, float key_delta)
 {
 	if (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID])
 	{
 		if (vars->keys[RIGHT_ID])
-			vars->player.angle_rad -= ROTATE_SPEED * (float)EVENT_HZ / event_delta;
+			vars->player.angle_rad -= KEY_ROTATE_SPEED * (float)KEY_HZ / key_delta;
 		if (vars->keys[LEFT_ID])
-			vars->player.angle_rad += ROTATE_SPEED * (float)EVENT_HZ / event_delta;
+			vars->player.angle_rad += KEY_ROTATE_SPEED * (float)KEY_HZ / key_delta;
 		if (vars->player.angle_rad > (2 * PI))
 			vars->player.angle_rad -= (2 * PI);
 		else if (vars->player.angle_rad < (-2 * PI))
@@ -92,41 +92,50 @@ int	loop_hook(t_vars *vars)
 {
 	long			now;
 	float			frame_delta;
-	float			event_delta;
+	float			mouse_delta;
+	float			key_delta;
 
 	now = gettime();
-	event_delta = 1000000.0 / (now - vars->last_calc_time);
-	if (EVENT_HZ > event_delta)
+	mouse_delta = 1000000.0 / (now - vars->last_mouse_time);
+	if (MOUSE_HZ > mouse_delta)
 	{
-		// printf("event_delta %.2f\n", event_delta);
-		vars->event_delta_sum += event_delta;
-		vars->event_count++;
-		vars->last_calc_time = now;
-		player_move(vars, event_delta);
-		player_rotate(vars, event_delta);
+		mouse_event(vars);
+		vars->last_mouse_time = now;
 	}
-	frame_delta = 1000000.0 / (now - vars->last_disp_time);
+	key_delta = 1000000.0 / (now - vars->last_event_time);
+	if (KEY_HZ > key_delta)
+	{
+		// vars->event_delta_sum += key_delta;
+		// vars->event_count++;
+		player_move(vars, key_delta);
+		player_rotate_for_key(vars, key_delta);
+		if (vars->keys[M_ID] == 1)
+			vars->is_map = !vars->is_map;
+		vars->last_event_time = now;
+	}
+	frame_delta = 1000000.0 / (now - vars->last_frame_time);
 	if (FRAME_HZ > frame_delta)
 	{
-		if (vars->last_disp_time)
-		{
-			printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
-				vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
-			print_player_status_for_dev(vars);
-			vars->i = 0;
-			vars->event_count = 0;
-			vars->event_delta_sum = 0;
-			printf("\n");
-		}
-		vars->last_disp_time = now;
+		// if (vars->last_frame_time)
+		// {
+		// 	printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
+		// 		vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
+		// 	print_player_status_for_dev(vars);
+		// 	vars->i = 0;
+		// 	vars->event_count = 0;
+		// 	vars->event_delta_sum = 0;
+		// 	printf("\n");
+		// }
 		cast_rays(vars);
 		draw_background(vars, 0x36300c, 0x222222);
 		draw_wall(vars);
-		// draw_map_2d(vars, 0xdddddd, 0xffff00);
+		if (vars->is_map)
+			draw_map_2d(vars, 0xcb996e, 0xf1c189);
 		draw_player_2d(vars, 0xffff00, 0xff0000);
 		draw_rays_2d(vars, 0x00ff00);
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
+		vars->last_frame_time = now;
 	}
-	vars->i++;
+	// vars->i++;
 	return (CNT);
 }
