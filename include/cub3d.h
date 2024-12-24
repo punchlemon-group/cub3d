@@ -23,11 +23,12 @@
 # define S 115
 # define D 100
 
-# define PI 3.14159265358979
+# define PI 3.14159265358979323846
+# define TPI 6.28318530717958647692
 
 # define P 4
 
-# define KEY_NUM 8
+# define KEY_NUM 9
 
 # define LITTLE_ENDIAN 0
 
@@ -36,7 +37,7 @@
 # define MAP_SCALE 10
 # define PLAYER_SIZE 5
 
-# define EVENT_HZ 1000
+# define EVENT_HZ 100
 # define FRAME_HZ 60
 
 # define SCREEN_RATIO ((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT)
@@ -45,8 +46,8 @@
 # define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
 # define VIEWING_VERTICAL_ANGLE_RAD (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
 
-# define MOVE_SPEED 0.005
-# define ROTATE_SPEED 0.002
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.01
 
 # define LIGHT_DEAD_LEN_POW_2 256
 
@@ -116,8 +117,8 @@ typedef struct s_ray
 
 typedef struct s_vars
 {
-	void		*mlx;
-	void		*win;
+	t_xvar		*mlx;
+	t_win_list	*win;
 	t_img		*north;
 	t_img		*east;
 	t_img		*west;
@@ -135,6 +136,8 @@ typedef struct s_vars
 	const char	*addr;
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
+	t_cordinate	mouse;
+	int			mouse_hide;
 }	t_vars;
 
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
@@ -158,5 +161,6 @@ int		window_close(t_vars *vars);
 int		loop_hook(t_vars *vars);
 int		key_press(int key, t_vars *vars);
 int		key_release(int key, t_vars *vars);
+int		mouse_move(int x, int y, t_vars *vars);
 
 #endif

@@ -41,6 +41,7 @@ $(addsuffix .c, \
 		key_hook \
 		loop_hook \
 		main \
+		player_rotate \
 	) \
 ) \
 
