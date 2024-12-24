@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:20:15 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 18:15:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,13 @@ int	loop_hook(t_vars *vars)
 	{
 		if (vars->last_disp_time)
 		{
-			// printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
-			// 	vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
-			// print_player_status_for_dev(vars);
+			printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
+				vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
+			print_player_status_for_dev(vars);
 			vars->i = 0;
 			vars->event_count = 0;
 			vars->event_delta_sum = 0;
-			// printf("\n");
+			printf("\n");
 		}
 		vars->last_disp_time = now;
 		cast_rays(vars);

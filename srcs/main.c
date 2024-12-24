@@ -6,26 +6,61 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:39:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:41:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+#define MINIMUM_FILE_NAME_LEN 1
+
+enum
+{
+	OK = 0,
+	TOO_SHORT,
+	NO_EXTENTION,
+};
+
+// int	is_filename_char(const char c)
+// {
+
+// }
+
+int	is_valid_filename(const char *src, const char *extention)
+{
+	size_t	i;
+	size_t	src_len;
+	size_t	extention_len;
+	const char	*dot_p;
+
+	src_len = ft_strlen(src);
+	extention_len = ft_strlen(extention);
+	i = 0;
+	while (i < src_len)
+	{
+		// is_filename_char(src[i]);
+		i++;
+	}
+	if (src_len < (MINIMUM_FILE_NAME_LEN + 1 + extention_len))
+		return (TOO_SHORT);
+	dot_p = ft_strrchr(src, '.');
+	if (!dot_p)
+		return (NO_EXTENTION);
+	return (OK);
+}
 
 void	check_args(int argc, char **argv, t_vars *vars)
 {
-	const char	*file_name;
-	size_t		len;
+	int	is_valid_filename_result;
+
 	(void)vars;
 	if (argc != 2)
 		end(NULL, 0, "Number of arguments is wrong\n");
-	file_name = argv[1];
-	len = ft_strlen(file_name);
-	if (len < 5)
-		end(NULL, 0, "Name of file is too short\n");
-	if (file_name[len - 4] != '.' || file_name[len - 3] != 'c' || file_name[len - 2] != 'u' || file_name[len - 1] != 'b')
-		end(NULL, 0, "");
+	is_valid_filename_result = is_valid_filename(argv[1], "cub");
+	if (is_valid_filename_result == TOO_SHORT)
+		end(NULL, 0, "File name is too short\n");
+	if (is_valid_filename_result == NO_EXTENTION)
+		end(NULL, 0, "No extention\n");
 }
 
 void	create_tiles(t_vars *vars)
@@ -151,7 +186,9 @@ int	main(int argc, char **argv)
 	t_vars		vars;
 
 	set_zero(&vars);
-	check_args(argc, argv, &vars);
+	(void)argc;
+	(void)argv;
+	// check_args(argc, argv, &vars);
 	init(&vars);
 	get_map_size(&vars);
 	get_player(&vars);

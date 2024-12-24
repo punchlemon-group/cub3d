@@ -48,7 +48,7 @@
 # define MOVE_SPEED 0.005
 # define ROTATE_SPEED 0.002
 
-# define LIGHT_DEAD_LEN_POW_2 225
+# define LIGHT_DEAD_LEN_POW_2 256
 
 # define PLAYER_HEIGHT 1.75
 # define MAX_JUMP_HEIGHT 0.3
@@ -109,8 +109,8 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	t_img	*img; // 描画するべきimage
-	int		x; // imageのx番目の列のピクセルたちを持ってくる
+	t_img	*img;
+	int		x;
 	float	len;
 }	t_ray;
 
