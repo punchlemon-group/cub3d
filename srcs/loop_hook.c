@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/24 14:02:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 13:08:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	player_move(t_vars *vars, float key_delta)
 			* cos(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
 		y_ = vars->player.y + MOVE_SPEED
 			* -sin(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
-		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する)
+		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する) // すりぬけをなんとかする
 		{
 			vars->player.x = x_;
 			vars->player.y = y_;
@@ -88,6 +88,25 @@ void	player_rotate_for_key(t_vars *vars, float key_delta)
 	}
 }
 
+void	release_check(t_vars *vars, long now)
+{
+	long	last_key_release_time;
+	int		i;
+
+	i = 0;
+	while (i < KEY_NUM)
+	{
+		if (vars->keys[i] == 1)
+		{
+			last_key_release_time = vars->last_key_release_time[i];
+			if (vars->last_key_press_time[i] < last_key_release_time
+				&& now > 1000 + last_key_release_time)
+				vars->keys[i] = 0;
+		}
+		i++;
+	}
+}
+
 int	loop_hook(t_vars *vars)
 {
 	long			now;
@@ -96,6 +115,7 @@ int	loop_hook(t_vars *vars)
 	float			key_delta;
 
 	now = gettime();
+	release_check(vars, now);
 	mouse_delta = 1000000.0 / (now - vars->last_mouse_time);
 	if (MOUSE_HZ > mouse_delta)
 	{
@@ -107,10 +127,11 @@ int	loop_hook(t_vars *vars)
 	{
 		// vars->event_delta_sum += key_delta;
 		// vars->event_count++;
+		if (vars->last_key_m == 0 && vars->keys[M_ID] == 1)
+			vars->is_map = !vars->is_map;
+		vars->last_key_m = vars->keys[M_ID];
 		player_move(vars, key_delta);
 		player_rotate_for_key(vars, key_delta);
-		if (vars->keys[M_ID] == 1)
-			vars->is_map = !vars->is_map;
 		vars->last_event_time = now;
 	}
 	frame_delta = 1000000.0 / (now - vars->last_frame_time);
@@ -130,9 +151,11 @@ int	loop_hook(t_vars *vars)
 		draw_background(vars, 0x36300c, 0x222222);
 		draw_wall(vars);
 		if (vars->is_map)
+		{
 			draw_map_2d(vars, 0xcb996e, 0xf1c189);
-		draw_player_2d(vars, 0xffff00, 0xff0000);
-		draw_rays_2d(vars, 0x00ff00);
+			draw_player_2d(vars, 0xffff00, 0xff0000);
+			draw_rays_2d(vars, 0x00ff00);
+		}
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->image_buffer, 0, 0);
 		vars->last_frame_time = now;
 	}

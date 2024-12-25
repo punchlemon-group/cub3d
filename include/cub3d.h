@@ -38,8 +38,8 @@
 # define MAP_SCALE 10
 # define PLAYER_SIZE 5
 
-# define MOUSE_HZ 100
-# define KEY_HZ 100
+# define MOUSE_HZ 1000
+# define KEY_HZ 1000
 # define FRAME_HZ 60
 
 # define SCREEN_RATIO ((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT)
@@ -48,8 +48,8 @@
 # define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
 # define VIEWING_VERTICAL_ANGLE_RAD (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
 
-# define MOVE_SPEED 0.05
-# define KEY_ROTATE_SPEED 0.01
+# define MOVE_SPEED 0.005
+# define KEY_ROTATE_SPEED 0.001
 # define MOUSE_ROTATE_SPEED 0.001
 
 # define LIGHT_DEAD_LEN_POW_2 256
@@ -139,10 +139,13 @@ typedef struct s_vars
 	int			map_height;
 	t_player	player;
 	const char	*addr;
+	long		last_key_press_time[KEY_NUM];
+	long		last_key_release_time[KEY_NUM];
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
 	t_cordinate	mouse;
 	int			is_in_mouse;
+	int			last_key_m;
 	int			is_map;
 }	t_vars;
 

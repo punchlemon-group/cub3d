@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/24 13:58:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 13:07:34 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ void	set_zero(t_vars *vars)
 
 	i = 0;
 	while (i < KEY_NUM)
+	{
+		vars->last_key_press_time[i] = 0;
+		vars->last_key_release_time[i] = 0;
 		vars->keys[i++] = 0;
+	}
 	vars->mlx = NULL;
 	vars->win = NULL;
 	vars->north = NULL;
@@ -109,6 +113,7 @@ void	set_zero(t_vars *vars)
 	vars->event_count = 0;
 	vars->event_delta_sum = 0;
 	vars->is_in_mouse = 0;
+	vars->last_key_m = 0;
 	vars->is_map = 0;
 }
 
@@ -199,7 +204,6 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.win, KeyPress, KeyPressMask, key_press, &vars);
 	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_release, &vars);
 	mlx_hook(vars.win, DestroyNotify, NoEventMask, window_close, &vars);
-	// mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);

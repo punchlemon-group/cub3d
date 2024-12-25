@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:18:03 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/24 14:02:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 13:02:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,60 @@
 
 int	key_press(int key, t_vars *vars)
 {
+	int	i;
+
+	i = 0;
 	if (key == ESC)
 		window_close(vars);
-	else if (key == W && vars->keys[W_ID] == 0)
-		vars->keys[W_ID] = 1;
-	else if (key == S && vars->keys[S_ID] == 0)
-		vars->keys[S_ID] = 1;
-	else if (key == D && vars->keys[D_ID] == 0)
-		vars->keys[D_ID] = 1;
-	else if (key == A && vars->keys[A_ID] == 0)
-		vars->keys[A_ID] = 1;
-	else if (key == RIGHT && vars->keys[RIGHT_ID] == 0)
-		vars->keys[RIGHT_ID] = 1;
-	else if (key == LEFT && vars->keys[LEFT_ID] == 0)
-		vars->keys[LEFT_ID] = 1;
-	else if (key == UP && (vars->keys[UP_ID] == 0 || vars->keys[UP_ID] == 1))
-		vars->keys[UP_ID]++;
-	else if (key == DOWN
-		&& (vars->keys[DOWN_ID] == 0 || vars->keys[DOWN_ID] == 1))
-		vars->keys[DOWN_ID]++;
-	else if (key == M
-		&& (vars->keys[M_ID] == 0 || vars->keys[M_ID] == 1))
-		vars->keys[M_ID]++;
+	else if (key == W)
+		i = W_ID;
+	else if (key == S)
+		i = S_ID;
+	else if (key == D)
+		i = D_ID;
+	else if (key == A)
+		i = A_ID;
+	else if (key == RIGHT)
+		i = RIGHT_ID;
+	else if (key == LEFT)
+		i = LEFT_ID;
+	else if (key == UP)
+		i = UP_ID;
+	else if (key == DOWN)
+		i = DOWN_ID;
+	else if (key == M)
+		i = M_ID;
+	else
+		return (CNT);
+	vars->last_key_press_time[i] = gettime();
+	vars->keys[i] = 1;
 	return (CNT);
 }
 
 int	key_release(int key, t_vars *vars)
 {
+	int	i;
+
 	if (key == W)
-		vars->keys[W_ID] = 0;
+		i = W_ID;
 	else if (key == S)
-		vars->keys[S_ID] = 0;
+		i = S_ID;
 	else if (key == D)
-		vars->keys[D_ID] = 0;
+		i = D_ID;
 	else if (key == A)
-		vars->keys[A_ID] = 0;
+		i = A_ID;
 	else if (key == RIGHT)
-		vars->keys[RIGHT_ID] = 0;
+		i = RIGHT_ID;
 	else if (key == LEFT)
-		vars->keys[LEFT_ID] = 0;
+		i = LEFT_ID;
 	else if (key == UP)
-		vars->keys[UP_ID] = 0;
+		i = UP_ID;
 	else if (key == DOWN)
-		vars->keys[DOWN_ID] = 0;
+		i = DOWN_ID;
 	else if (key == M)
-		vars->keys[M_ID] = 0;
+		i = M_ID;
+	else
+		return (CNT);
+	vars->last_key_release_time[i] = gettime();
 	return (CNT);
 }
