@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 19:37:43 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 20:09:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	print_player_status_for_dev(t_vars *vars)
 {
 	t_player	p;
 
-	if ((vars->keys[W_ID] != vars->keys[S_ID])
-		|| (vars->keys[A_ID] != vars->keys[D_ID])
-		|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
-	{
+	// if ((vars->keys[W_ID] != vars->keys[S_ID])
+	// 	|| (vars->keys[A_ID] != vars->keys[D_ID])
+	// 	|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
+	// {
 		p = vars->player;
 		printf(", x:%f, y:%f, angle_rad:%f", p.x, p.y, p.angle_rad);
-	}
+	// }
 }
 
 float	get_bias_rad(int *keys)
@@ -51,6 +51,23 @@ float	get_bias_rad(int *keys)
 	return (bias_rad);
 }
 
+int	check_collision(t_vars *vars, float x, float y)
+{
+	if ((int)(x + PLAYER_RADIUS) != (int)(x))
+		if (vars->map[(int)y][(int)(x + PLAYER_RADIUS)] == '1')
+			return (1);
+	if ((int)(x - PLAYER_RADIUS) - 1 != (int)(x))
+		if (vars->map[(int)y][(int)(x - PLAYER_RADIUS)] == '1')
+			return (1);
+	if ((int)(y + PLAYER_RADIUS) != (int)(y))
+		if (vars->map[(int)(y + PLAYER_RADIUS)][(int)x] == '1')
+			return (1);
+	if ((int)(x - PLAYER_RADIUS) - 1 != (int)(x))
+		if (vars->map[(int)(y - PLAYER_RADIUS)][(int)x] == '1')
+			return (1);
+	return (0);
+}
+
 void	player_move(t_vars *vars, float key_delta)
 {
 	float	bias_rad;
@@ -65,7 +82,7 @@ void	player_move(t_vars *vars, float key_delta)
 			* cos(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
 		y_ = vars->player.y + MOVE_SPEED
 			* -sin(vars->player.angle_rad + bias_rad) * (float)KEY_HZ / key_delta;
-		if ((vars->map)[(int)y_][(int)x_] != '1') // 壁の衝突判定 (ドアも衝突する) // すりぬけをなんとかする
+		if (!check_collision(vars, x_, y_))
 		{
 			vars->player.x = x_;
 			vars->player.y = y_;
@@ -116,13 +133,13 @@ int	loop_hook(t_vars *vars)
 
 	now = gettime();
 	release_check(vars, now);
-	mouse_delta = 1000000.0 / (now - vars->last_mouse_time);
+	mouse_delta = ONE_SEC_FOR_USEC / (now - vars->last_mouse_time);
 	if (MOUSE_HZ > mouse_delta)
 	{
 		mouse_event(vars);
 		vars->last_mouse_time = now;
 	}
-	key_delta = 1000000.0 / (now - vars->last_event_time);
+	key_delta = ONE_SEC_FOR_USEC / (now - vars->last_event_time);
 	if (KEY_HZ > key_delta)
 	{
 		// vars->event_delta_sum += key_delta;
@@ -134,19 +151,19 @@ int	loop_hook(t_vars *vars)
 		player_rotate_for_key(vars, key_delta);
 		vars->last_event_time = now;
 	}
-	frame_delta = 1000000.0 / (now - vars->last_frame_time);
+	frame_delta = ONE_SEC_FOR_USEC / (now - vars->last_frame_time);
 	if (FRAME_HZ > frame_delta)
 	{
-		// if (vars->last_frame_time)
-		// {
+		if (vars->last_frame_time)
+		{
 		// 	printf("loop: %03d, calc: %.1f[Hz], disp: %.2f[Hz]",
 		// 		vars->i, vars->event_delta_sum / vars->event_count, frame_delta);
-		// 	print_player_status_for_dev(vars);
+			print_player_status_for_dev(vars);
 		// 	vars->i = 0;
 		// 	vars->event_count = 0;
 		// 	vars->event_delta_sum = 0;
-		// 	printf("\n");
-		// }
+			printf("\n");
+		}
 		cast_rays(vars);
 		draw_background(vars, 0x36300c, 0x222222);
 		draw_wall(vars);

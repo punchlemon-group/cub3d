@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 19:38:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:53:15 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@
 # define MAP_SCALE 10
 # define PLAYER_SIZE 5
 
+# define ONE_SEC_FOR_USEC 1000000.0
 # define MOUSE_HZ 1000
 # define KEY_HZ 1000
 # define FRAME_HZ 60
 
 # define SCREEN_RATIO ((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT)
+
+# define PLAYER_RADIUS 0.2
 
 // 60 deg
 # define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
