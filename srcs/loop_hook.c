@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 13:08:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:37:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	release_check(t_vars *vars, long now)
 		if (vars->keys[i] == 1)
 		{
 			last_key_release_time = vars->last_key_release_time[i];
-			if (vars->last_key_press_time[i] < last_key_release_time
-				&& now > 1000 + last_key_release_time)
+			if (vars->last_key_press_time[i] < last_key_release_time && now
+				> (SHORTEST_CONSECUTIVE_PRESS_USEC + last_key_release_time))
 				vars->keys[i] = 0;
 		}
 		i++;

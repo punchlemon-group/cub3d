@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 22:56:21by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:38:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define MOVE_SPEED 0.005
 # define KEY_ROTATE_SPEED 0.001
 # define MOUSE_ROTATE_SPEED 0.001
+# define SHORTEST_CONSECUTIVE_PRESS_USEC 100
 
 # define LIGHT_DEAD_LEN_POW_2 256
 
