@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 13:07:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:20:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	set_zero(t_vars *vars)
 	i = 0;
 	while (i < KEY_NUM)
 	{
-		vars->last_key_press_time[i] = 0;
-		vars->last_key_release_time[i] = 0;
+		// vars->last_key_press_time[i] = 0;
+		// vars->last_key_release_time[i] = 0;
 		vars->keys[i++] = 0;
 	}
 	vars->mlx = NULL;

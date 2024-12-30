@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:18:03 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 13:02:43 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:20:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	key_press(int key, t_vars *vars)
 		i = M_ID;
 	else
 		return (CNT);
-	vars->last_key_press_time[i] = gettime();
+	// vars->last_key_press_time[i] = gettime();
 	vars->keys[i] = 1;
 	return (CNT);
 }
@@ -68,6 +68,7 @@ int	key_release(int key, t_vars *vars)
 		i = M_ID;
 	else
 		return (CNT);
-	vars->last_key_release_time[i] = gettime();
+	// vars->last_key_release_time[i] = gettime();
+	vars->keys[i] = 0;
 	return (CNT);
 }

@@ -12,37 +12,47 @@
 
 #include "cub3d.h"
 
-void	draw_vertical_line_easy_for_deb(t_vars *vars, int color, int i)
+void	draw_ceiling_and_floor(t_vars *vars, t_colors colors, float len,
+	t_pnt_i c)
 {
-	int			j;
-	t_cordinate	c;
-	
-	j = 0;
-	while (j < WINDOW_WIDTH)
-	{
-		c.y = i;
-		c.x = j;
-		ft_pixel_put_to_image(vars, color, c);
-		j++;
-	}
+	int	x;
+	int	y;
+
+	x = c.x;
+	y = c.y;
+	ft_pixel_put_to_image(vars, dark_color(colors.ceiling, len), c);
+	c.x = WINDOW_WIDTH - 1 - x;
+	ft_pixel_put_to_image(vars, dark_color(colors.ceiling, len), c);
+	c.y = WINDOW_HEIGHT - 1 - y;
+	ft_pixel_put_to_image(vars, dark_color(colors.floor, len), c);
+	c.x = x;
+	ft_pixel_put_to_image(vars, dark_color(colors.floor, len), c);
 }
 
-void	draw_background(t_vars *vars, int ceiling_color, int floor_color)
+void	draw_background(t_vars *vars, t_colors	colors)
 {
-	float	angle;
-	int		i;
-	int		darked_color;
+	float		horizontal_angle;
+	float		vertical_angle;
+	int			i;
+	int			j;
+	t_pnt_i	c;
 
 	i = 0;
-	angle = VIEWING_VERTICAL_ANGLE_RAD / 2;
-	while (i < WINDOW_HEIGHT)
+	horizontal_angle = VIEWING_HORIZONTAL_ANGLE_RAD / 2;
+	while (i < (WINDOW_WIDTH) / 2)
 	{
-		if (sin(angle) > 0)
-			darked_color = dark_color(ceiling_color, fabs(0.5 / sin(angle)));
-		else
-			darked_color = dark_color(floor_color, fabs(0.5 / sin(angle)));
-		draw_vertical_line_easy_for_deb(vars, darked_color, i);
-		angle -= VIEWING_VERTICAL_ANGLE_RAD / (float)WINDOW_HEIGHT;
+		c.x = i;
+		vertical_angle = VIEWING_VERTICAL_ANGLE_RAD / 2;
+		j = 0;
+		while (j < (WINDOW_HEIGHT) / 2)
+		{
+			c.y = j;
+			draw_ceiling_and_floor(vars, colors, 0.5 / sin(vertical_angle)
+				/ cos(horizontal_angle), c);
+			vertical_angle -= VIEWING_VERTICAL_ANGLE_RAD / (float)WINDOW_HEIGHT;
+			j++;
+		}
+		horizontal_angle -= VIEWING_HORIZONTAL_ANGLE_RAD / (float)WINDOW_WIDTH;
 		i++;
 	}
 }

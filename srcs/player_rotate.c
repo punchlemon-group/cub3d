@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 10:11:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/24 13:47:14 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mouse_event(t_vars *vars)
 {
-	t_cordinate		new;
+	t_pnt_i		new;
 
 	mlx_mouse_get_pos(vars->mlx, vars->win, &new.x, &new.y);
 	if (new.x < 0 || new.x >= WINDOW_WIDTH
@@ -41,7 +41,7 @@ void	mouse_event(t_vars *vars)
 	}
 }
 
-void	player_rotate_for_mouse(t_vars *vars, t_cordinate *new)
+void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new)
 {
 	if (new->x != WINDOW_WIDTH / 2 || new->y != WINDOW_HEIGHT / 2)
 	{

@@ -6,13 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:50:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 14:54:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a)
+void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a)
 {
 	int	i;
 	int	j;

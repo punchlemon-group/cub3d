@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/25 19:53:15 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 # define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
 # define VIEWING_VERTICAL_ANGLE_RAD (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
 
-# define MOVE_SPEED 0.005
-# define KEY_ROTATE_SPEED 0.001
+# define KEY_MOVE_SPEED 5
+# define KEY_ROTATE_SPEED 1
 # define MOUSE_ROTATE_SPEED 0.001
 # define SHORTEST_CONSECUTIVE_PRESS_USEC 100
 
@@ -101,11 +101,23 @@ enum
 	JUMP,
 };
 
-typedef struct s_cordinate
+typedef struct s_colors
+{
+	int	ceiling;
+	int	floor;
+}	t_colors;
+
+typedef struct s_ipoint
 {
 	int	x;
 	int	y;
-}	t_cordinate;
+}	t_pnt_i;
+
+typedef struct s_fpoint
+{
+	float	x;
+	float	y;
+}	t_pnt_f;
 
 typedef struct s_player
 {
@@ -143,25 +155,25 @@ typedef struct s_vars
 	int			map_height;
 	t_player	player;
 	const char	*addr;
-	long		last_key_press_time[KEY_NUM];
-	long		last_key_release_time[KEY_NUM];
+	// long		last_key_press_time[KEY_NUM];
+	// long		last_key_release_time[KEY_NUM];
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
-	t_cordinate	mouse;
+	t_pnt_i	mouse;
 	int			is_in_mouse;
 	int			last_key_m;
 	int			is_map;
 }	t_vars;
 
-void	ft_pixel_put_to_image(t_vars *vars, int color, t_cordinate c);
-void	ft_circle_put_to_image(t_vars *vars, int color, t_cordinate c, int r);
-void	ft_square_put_to_image(t_vars *vars, int color, t_cordinate c, int a);
-void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
-	t_cordinate len);
+void	ft_pixel_put_to_image(t_vars *vars, int color, t_pnt_i c);
+void	ft_circle_put_to_image(t_vars *vars, int color, t_pnt_i c, int r);
+void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
+void	ft_rectangle_put_to_image(t_vars *vars, int color, t_pnt_i c,
+	t_pnt_i len);
 
 void	cast_rays(t_vars *vars);
 int		dark_color(int color, float len);
-void	draw_background(t_vars *vars, int ceiling_color, int floor_color);
+void	draw_background(t_vars *vars, t_colors colors);
 void	draw_map_2d(t_vars *vars, int floor_color, int wall_color);
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color);
 void	draw_rays_2d(t_vars *vars, int color);
@@ -176,6 +188,6 @@ int		key_press(int key, t_vars *vars);
 int		key_release(int key, t_vars *vars);
 // int		mouse_move(int x, int y, t_vars *vars);
 void	mouse_event(t_vars *vars);
-void	player_rotate_for_mouse(t_vars *vars, t_cordinate *new);
+void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new);
 
 #endif

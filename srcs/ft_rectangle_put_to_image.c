@@ -6,14 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:50:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/18 14:54:54 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_rectangle_put_to_image(t_vars *vars, int color, t_cordinate c,
-	t_cordinate len)
+void	ft_rectangle_put_to_image(t_vars *vars, int color, t_pnt_i c,
+	t_pnt_i len)
 {
 	int	i;
 	int	j;

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:49:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/16 12:53:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_player_2d(t_vars *vars, int base_color, int nose_color)
 {
-	t_cordinate	c;
+	t_pnt_i	c;
 
 	c.x = vars->player.x * MAP_SCALE;
 	c.y = vars->player.y * MAP_SCALE;

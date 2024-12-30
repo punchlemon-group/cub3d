@@ -6,13 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:32:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 16:34:22 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	draw_cell(t_vars *vars, int color, t_cordinate head, int y_end)
+int	draw_cell(t_vars *vars, int color, t_pnt_i head, int y_end)
 {
 	while (head.y < y_end)
 	{
@@ -29,7 +29,7 @@ void	draw_horizontal_line_easy_for_deb(t_vars *vars, int i, t_ray ray, float ang
 {
 	int			j;
 	int			limit;
-	t_cordinate	head;
+	t_pnt_i	head;
 	float		y;
 	float		d_y;
 

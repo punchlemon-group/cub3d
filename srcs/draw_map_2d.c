@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 14:43:26 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/15 15:07:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_map_2d(t_vars *vars, int floor_color, int wall_color)
 {
 	int	i;
 	int	j;
-	t_cordinate	c;
+	t_pnt_i	c;
 
 	i = 0;
 	while (vars->map[i])
