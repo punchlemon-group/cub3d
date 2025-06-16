@@ -83,6 +83,55 @@ int	check_x(t_vars *vars, t_pnt_f *p)
 	return (1);
 }
 
+void	slide_along_corner(t_pnt_f *p, float corner_x, float corner_y)
+{
+	float	corner_len;
+	float	dot_product;
+	float	projection_x;
+	float	projection_y;
+	float	original_speed;
+
+	// 元の移動速度を保存
+	original_speed = sqrt(p->x * p->x + p->y * p->y);
+	if (original_speed < 0.001f)
+		return;
+
+	// 角の位置ベクトルの長さを計算
+	corner_len = sqrt(corner_x * corner_x + corner_y * corner_y);
+	if (corner_len < 0.001f)
+	{
+		p->x = 0;
+		p->y = 0;
+		return;
+	}
+	
+	// 角の法線ベクトル（正規化）
+	corner_x /= corner_len;
+	corner_y /= corner_len;
+	
+	// 移動ベクトルと法線ベクトルの内積
+	dot_product = p->x * corner_x + p->y * corner_y;
+	
+	// 角に向かう成分のみを除去（角から離れる方向は残す）
+	if (dot_product > 0)
+	{
+		projection_x = dot_product * corner_x;
+		projection_y = dot_product * corner_y;
+		
+		p->x -= projection_x;
+		p->y -= projection_y;
+		
+		// 滑り移動の速度を元の速度の一定割合に調整
+		float slide_speed = sqrt(p->x * p->x + p->y * p->y);
+		if (slide_speed > 0.001f)
+		{
+			float speed_ratio = original_speed * 0.8f / slide_speed;
+			p->x *= speed_ratio;
+			p->y *= speed_ratio;
+		}
+	}
+}
+
 void	check_corner(t_vars *vars, t_pnt_f *p)
 {
 	float	x_;
@@ -96,45 +145,30 @@ void	check_corner(t_vars *vars, t_pnt_f *p)
 	x_2 = x_ * x_;
 	y_2 = y_ * y_;
 	radius_2 = PLAYER_RADIUS * PLAYER_RADIUS;
+	
+	// 左上の角
 	if (x_2 + y_2 < radius_2)
 	{
 		if (vars->map[(int)vars->player.y - 1][(int)vars->player.x - 1] == '1')
-		{
-			p->x = 0;
-			p->y = 0;
-			// p->x = -cos(atan(y_ / x_));
-			// p->y = -sin(atan(y_ / x_));
-		}
+			slide_along_corner(p, x_, y_);
 	}
-	else if (x_2 + 1 - 2 * y_ - y_2 < radius_2)
+	// 左下の角
+	else if (x_2 + (1 - y_) * (1 - y_) < radius_2)
 	{
 		if (vars->map[(int)vars->player.y + 1][(int)vars->player.x - 1] == '1')
-		{
-			p->x = 0;
-			p->y = 0;
-			// p->x = -cos(atan((1 - y_) / x_));
-			// p->y = -sin(atan((1 - y_) / x_));
-		}
+			slide_along_corner(p, x_, y_ - 1);
 	}
-	else if (1 - 2 * x_ - x_2 + y_2 < radius_2)
+	// 右上の角
+	else if ((1 - x_) * (1 - x_) + y_2 < radius_2)
 	{
 		if (vars->map[(int)vars->player.y - 1][(int)vars->player.x + 1] == '1')
-		{
-			p->x = 0;
-			p->y = 0;
-			// p->x = -cos(atan(y_ / (1 - x_)));
-			// p->y = -sin(atan(y_ / (1 - x_)));
-		}
+			slide_along_corner(p, x_ - 1, y_);
 	}
-	else if (1 - 2 * x_ - x_2 + 1 - 2 * y_ - y_2 < radius_2)
+	// 右下の角
+	else if ((1 - x_) * (1 - x_) + (1 - y_) * (1 - y_) < radius_2)
 	{
 		if (vars->map[(int)vars->player.y + 1][(int)vars->player.x + 1] == '1')
-		{
-			p->x = 0;
-			p->y = 0;
-			// p->x = -cos(atan((1 - y_) / (1 - x_)));
-			// p->y = -sin(atan((1 - y_) / (1 - x_)));
-		}
+			slide_along_corner(p, x_ - 1, y_ - 1);
 	}
 }
 
