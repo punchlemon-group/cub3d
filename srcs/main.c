@@ -116,6 +116,10 @@ void	set_zero(t_vars *vars)
 	vars->last_key_m = 0;
 	vars->is_map = 0;
 	
+	// Initialize mouse
+	vars->mouse.x = WINDOW_WIDTH / 2;
+	vars->mouse.y = WINDOW_HEIGHT / 2;
+	
 	// Initialize config
 	vars->config.no_path = NULL;
 	vars->config.so_path = NULL;

@@ -17,6 +17,7 @@ void	mouse_event(t_vars *vars)
 	t_pnt_i		new;
 
 	mlx_mouse_get_pos(vars->mlx, vars->win, &new.x, &new.y);
+	// printf("Mouse pos: %d, %d (is_in_mouse: %d)\n", new.x, new.y, vars->is_in_mouse); // Debug
 	if (new.x < 0 || new.x >= WINDOW_WIDTH
 		|| new.y < 0 || new.y >= WINDOW_HEIGHT)
 	{
