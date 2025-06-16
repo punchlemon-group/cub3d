@@ -43,6 +43,21 @@ $(addsuffix .c, \
 		main \
 		player_rotate \
 	) \
+	$(addprefix $(SRCS_DIR)/parse/, \
+		parse_config \
+		parse_config_color \
+		parse_config_direction \
+		parse_config_utils \
+		parse_config_validation \
+		parse_file \
+		parse_file_read \
+		parse_file_utils \
+		parse_finalize \
+		parse_map \
+		parse_map_utils \
+		parse_map_validation \
+		parse_utils \
+	) \
 ) \
 
 OBJS = $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))

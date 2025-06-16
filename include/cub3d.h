@@ -75,6 +75,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 enum
 {
@@ -135,6 +136,31 @@ typedef struct s_ray
 	float	len;
 }	t_ray;
 
+typedef struct s_config
+{
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		floor_color[3];
+	int		ceil_color[3];
+	int		has_no;
+	int		has_so;
+	int		has_we;
+	int		has_ea;
+	int		has_floor;
+	int		has_ceil;
+}	t_config;
+
+typedef struct s_parse_data
+{
+	char	**raw_map;
+	char	*error_msg;
+	int		height;
+	int		max_width;
+	int		in_map_section;
+}	t_parse_data;
+
 typedef struct s_vars
 {
 	t_xvar		*mlx;
@@ -145,6 +171,9 @@ typedef struct s_vars
 	t_img		*south;
 	t_img		*image_buffer;
 	char		**map;
+	t_config	config;
+	int			width;
+	int			height;
 	long		last_event_time;
 	long		last_mouse_time;
 	long		last_frame_time;
@@ -189,5 +218,35 @@ int		key_release(int key, t_vars *vars);
 // int		mouse_move(int x, int y, t_vars *vars);
 void	mouse_event(t_vars *vars);
 void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new);
+
+// Parse functions
+void	validation_and_parse(int argc, char **argv, t_vars *vars);
+void	parse_cub_file(char *file_path, t_vars *vars);
+void	error_message_and_free(t_vars *vars, char *message, int exit_code);
+int		is_valid_extension(char *filename);
+void	initialize_config(t_vars *vars);
+int		validate_all_configs(t_vars *vars);
+int		handle_duplicate_config(int has_config, char **error_msg, char *value);
+int		parse_config_line(char *line, t_config *config, char **error_msg);
+int		process_config_by_type(t_config *config, int type, char *value, char **error_msg);
+int		handle_no_config(t_config *config, char *value, char **error_msg);
+int		handle_so_config(t_config *config, char *value, char **error_msg);
+int		handle_we_config(t_config *config, char *value, char **error_msg);
+int		handle_ea_config(t_config *config, char *value, char **error_msg);
+int		handle_floor_config(t_config *config, char *value, char **error_msg);
+int		handle_ceil_config(t_config *config, char *value, char **error_msg);
+int		is_valid_texture_path(char *path, char **error_msg);
+int		validate_color_count(char **parts, char **error_msg);
+int		validate_color_value(char *part, int *color_val, char **error_msg);
+void	start_map_section(char *line, t_parse_data *data, t_vars *vars);
+void	process_map_line(t_vars *vars, char *line, t_parse_data *data);
+int		is_valid_map_line(char *line);
+int		is_map_enclosed(char **map, int height, int width);
+int		validate_player_position(char **map, int height, int width, int *player_count);
+void	finalize_parsing(t_vars *vars, t_parse_data *data);
+char	**allocate_raw_map(void);
+void	parse_file_content(int fd, t_vars *vars, t_parse_data *data);
+void	handle_empty_line(char *line, int in_map_section, t_vars *vars);
+void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data, int fd);
 
 #endif

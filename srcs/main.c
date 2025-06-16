@@ -68,22 +68,22 @@ void	create_tiles(t_vars *vars)
 	int	width;
 	int	height;
 
-	vars->north = mlx_xpm_file_to_image(vars->mlx, "texture/isi.xpm",
+	vars->north = mlx_xpm_file_to_image(vars->mlx, vars->config.no_path,
 		&width, &height);
 	if (!vars->north)
-		end(vars, 0, "");
-	vars->east = mlx_xpm_file_to_image(vars->mlx, "texture/koke_isirenga.xpm",
+		end(vars, 0, "Failed to load north texture");
+	vars->east = mlx_xpm_file_to_image(vars->mlx, vars->config.ea_path,
 		&width, &height);
 	if (!vars->east)
-		end(vars, 0, "");
-	vars->west = mlx_xpm_file_to_image(vars->mlx, "texture/koke_maruisi.xpm",
+		end(vars, 0, "Failed to load east texture");
+	vars->west = mlx_xpm_file_to_image(vars->mlx, vars->config.we_path,
 		&width, &height);
 	if (!vars->west)
-		end(vars, 0, "");
-	vars->south = mlx_xpm_file_to_image(vars->mlx, "texture/kuro_isirenga.xpm",
+		end(vars, 0, "Failed to load west texture");
+	vars->south = mlx_xpm_file_to_image(vars->mlx, vars->config.so_path,
 		&width, &height);
 	if (!vars->south)
-		end(vars, 0, "");
+		end(vars, 0, "Failed to load south texture");
 }
 
 void	set_zero(t_vars *vars)
@@ -115,6 +115,14 @@ void	set_zero(t_vars *vars)
 	vars->is_in_mouse = 0;
 	vars->last_key_m = 0;
 	vars->is_map = 0;
+	
+	// Initialize config
+	vars->config.no_path = NULL;
+	vars->config.so_path = NULL;
+	vars->config.we_path = NULL;
+	vars->config.ea_path = NULL;
+	vars->width = 0;
+	vars->height = 0;
 }
 
 void	init(t_vars *vars)
@@ -129,29 +137,14 @@ void	init(t_vars *vars)
 	if (!vars->image_buffer)
 		end(vars, 0, "\"Image buffer\" was not generated\n");
 	create_tiles(vars);
-	vars->addr = "maps/test.cub";
-	vars->map = get_map(vars->addr);
-	if (!vars->map)
-		end(vars, 0, "");
 }
 
 // todo end関数のmessageを全部決める
 
 void	get_map_size(t_vars *vars)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	while (vars->map[i])
-	{
-		j = 0;
-		while (vars->map[i][j])
-			j++;
-		i++;
-	}
-	vars->map_width = j;
-	vars->map_height = i;
+	vars->map_width = vars->width;
+	vars->map_height = vars->height;
 }
 
 void	get_player(t_vars *vars)
@@ -194,9 +187,7 @@ int	main(int argc, char **argv)
 	t_vars		vars;
 
 	set_zero(&vars);
-	(void)argc;
-	(void)argv;
-	// check_args(argc, argv, &vars);
+	validation_and_parse(argc, argv, &vars);
 	init(&vars);
 	get_map_size(&vars);
 	get_player(&vars);
