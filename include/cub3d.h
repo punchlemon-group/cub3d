@@ -225,6 +225,7 @@ void	parse_cub_file(char *file_path, t_vars *vars);
 void	error_message_and_free(t_vars *vars, char *message, int exit_code);
 int		is_valid_extension(char *filename);
 void	initialize_config(t_vars *vars);
+void	handle_config_error(char *line, int fd, t_vars *vars, char *error_msg);
 int		validate_all_configs(t_vars *vars);
 int		handle_duplicate_config(int has_config, char **error_msg, char *value);
 int		parse_config_line(char *line, t_config *config, char **error_msg);

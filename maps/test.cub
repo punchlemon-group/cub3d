@@ -1,3 +1,11 @@
+NO ./texture/koke_isirenga.xpm
+SO ./texture/koke_maruisi.xpm
+WE ./texture/kuro_isirenga.xpm
+EA ./texture/isi.xpm
+
+F 220,100,0
+C 225,30,0
+
 11111111111111111111111111
 10000100000000000000000001
 10000100000000000000000001

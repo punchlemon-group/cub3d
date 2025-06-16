@@ -18,6 +18,7 @@ void	parse_cub_file(char *file_path, t_vars *vars)
 	t_parse_data	data;
 
 	initialize_config(vars);
+	ft_bzero(&data, sizeof(t_parse_data));
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		error_message_and_free(vars, "Cannot open file", 1);
