@@ -199,6 +199,7 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.win, KeyPress, KeyPressMask, key_press, &vars);
 	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_release, &vars);
 	mlx_hook(vars.win, DestroyNotify, NoEventMask, window_close, &vars);
+	mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);

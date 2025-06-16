@@ -24,6 +24,10 @@
 # define D 100
 # define M 109
 
+// X11 Event constants
+# define MotionNotify 6
+# define PointerMotionMask (1L<<6)
+
 # define PI 3.14159265358979323846
 # define TPI 6.28318530717958647692
 
@@ -54,6 +58,7 @@
 # define KEY_MOVE_SPEED 5
 # define KEY_ROTATE_SPEED 1
 # define MOUSE_ROTATE_SPEED 0.001
+# define MOUSE_ROTATE_SPEED_EVENT 0.005
 # define SHORTEST_CONSECUTIVE_PRESS_USEC 100
 
 # define LIGHT_DEAD_LEN_POW_2 256
@@ -218,6 +223,7 @@ int		key_release(int key, t_vars *vars);
 // int		mouse_move(int x, int y, t_vars *vars);
 void	mouse_event(t_vars *vars);
 void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new);
+int		mouse_move(int x, int y, t_vars *vars);
 
 // Parse functions
 void	validation_and_parse(int argc, char **argv, t_vars *vars);
