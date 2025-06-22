@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/30 15:17:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 03:58:29 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@
 # define S 115
 # define D 100
 # define M 109
-
-// X11 Event constants
-# define MotionNotify 6
-# define PointerMotionMask (1L<<6)
 
 # define PI 3.14159265358979323846
 # define TPI 6.28318530717958647692
@@ -47,13 +43,16 @@
 # define KEY_HZ 1000
 # define FRAME_HZ 60
 
-# define SCREEN_RATIO ((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT)
+// # define SCREEN_RATIO (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT
+# define SCREEN_RATIO 1.7777777777777777778
 
 # define PLAYER_RADIUS 0.2
 
 // 60 deg
-# define VIEWING_HORIZONTAL_ANGLE_RAD (PI / 3)
-# define VIEWING_VERTICAL_ANGLE_RAD (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
+# define VIEWING_HORIZONTAL_ANGLE_RAD 1.047197551196598
+
+// (VIEWING_HORIZONTAL_ANGLE_RAD / SCREEN_RATIO)
+# define VIEWING_VERTICAL_ANGLE_RAD 0.589048622548086
 
 # define KEY_MOVE_SPEED 5
 # define KEY_ROTATE_SPEED 1
@@ -68,7 +67,9 @@
 # define BLOCK_HEIGHT 2.5
 
 # define JUMP_TIME 0.2
-# define JUMP_FRAME (int)(JUMP_TIME * FRAME_HZ)
+
+//(int)(JUMP_TIME * FRAME_HZ)
+# define JUMP_FRAME 12
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -189,11 +190,9 @@ typedef struct s_vars
 	int			map_height;
 	t_player	player;
 	const char	*addr;
-	// long		last_key_press_time[KEY_NUM];
-	// long		last_key_release_time[KEY_NUM];
 	int			keys[KEY_NUM];
 	t_ray		rays[WINDOW_WIDTH];
-	t_pnt_i	mouse;
+	t_pnt_i		mouse;
 	int			is_in_mouse;
 	int			last_key_m;
 	int			is_map;
@@ -203,7 +202,7 @@ void	ft_pixel_put_to_image(t_vars *vars, int color, t_pnt_i c);
 void	ft_circle_put_to_image(t_vars *vars, int color, t_pnt_i c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
 void	ft_rectangle_put_to_image(t_vars *vars, int color, t_pnt_i c,
-	t_pnt_i len);
+			t_pnt_i len);
 
 void	cast_rays(t_vars *vars);
 int		dark_color(int color, float len);
@@ -235,7 +234,8 @@ void	handle_config_error(char *line, int fd, t_vars *vars, char *error_msg);
 int		validate_all_configs(t_vars *vars);
 int		handle_duplicate_config(int has_config, char **error_msg, char *value);
 int		parse_config_line(char *line, t_config *config, char **error_msg);
-int		process_config_by_type(t_config *config, int type, char *value, char **error_msg);
+int		process_config_by_type(t_config *config, int type, char *value,
+			char **error_msg);
 int		handle_no_config(t_config *config, char *value, char **error_msg);
 int		handle_so_config(t_config *config, char *value, char **error_msg);
 int		handle_we_config(t_config *config, char *value, char **error_msg);
@@ -249,11 +249,13 @@ void	start_map_section(char *line, t_parse_data *data, t_vars *vars);
 void	process_map_line(t_vars *vars, char *line, t_parse_data *data);
 int		is_valid_map_line(char *line);
 int		is_map_enclosed(char **map, int height, int width);
-int		validate_player_position(char **map, int height, int width, int *player_count);
+int		validate_player_position(char **map, int height, int width,
+			int *player_count);
 void	finalize_parsing(t_vars *vars, t_parse_data *data);
 char	**allocate_raw_map(void);
 void	parse_file_content(int fd, t_vars *vars, t_parse_data *data);
 void	handle_empty_line(char *line, int in_map_section, t_vars *vars);
-void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data, int fd);
+void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data,
+			int fd);
 
 #endif
