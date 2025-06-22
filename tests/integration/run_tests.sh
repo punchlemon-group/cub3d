@@ -111,6 +111,7 @@ check_memory_leaks() {
     # メモリリークの確認
     local definitely_lost=$(grep "definitely lost:" "$log_file" | grep -o '[0-9,]* bytes' | head -1 | tr -d ',')
     local possibly_lost=$(grep "possibly lost:" "$log_file" | grep -o '[0-9,]* bytes' | head -1 | tr -d ',')
+    local still_reachable=$(grep "still reachable:" "$log_file" | grep -o '[0-9,]* bytes' | head -1 | tr -d ',')
     local error_summary=$(grep "ERROR SUMMARY:" "$log_file" | grep -o '[0-9]* errors' | head -1)
     
     # バイト数を抽出（空の場合は0に設定）
@@ -121,6 +122,7 @@ check_memory_leaks() {
         echo -e "${RED}✗ MEMORY LEAK${RESET}: $test_name"
         echo "  Definitely lost: $definitely_lost bytes"
         echo "  Possibly lost: $possibly_lost bytes"
+        echo "  Still reachable: $still_reachable bytes"
         echo "  $error_summary"
         echo "  Full log: $log_file"
         MEMORY_LEAKS=$((MEMORY_LEAKS+1))
