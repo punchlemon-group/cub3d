@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:32:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 04:38:31 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ int	draw_cell(t_vars *vars, int color, t_pnt_i head, int y_end)
 	return (CNT);
 }
 
-void	draw_horizontal_line_easy_for_deb(t_vars *vars, int i, t_ray ray, float angle)
+void	draw_horizontal_line_easy_for_deb(t_vars *vars, int i, t_ray ray,
+			float angle)
 {
 	int			j;
 	int			limit;
-	t_pnt_i	head;
+	t_pnt_i		head;
 	float		y;
 	float		d_y;
 
-	limit = WINDOW_HEIGHT * (((float)SCREEN_RATIO * cos(VIEWING_HORIZONTAL_ANGLE_RAD / 2)) / cos(angle)) / ray.len;
+	limit = WINDOW_HEIGHT * (((float)SCREEN_RATIO
+				* cos(VIEWING_HORIZONTAL_ANGLE_RAD / 2))
+			/ cos(angle)) / ray.len;
 	head.x = i;
 	head.y = (WINDOW_HEIGHT - limit) / 2;
 	d_y = (float)limit / (float)ray.img->height;
@@ -44,12 +47,13 @@ void	draw_horizontal_line_easy_for_deb(t_vars *vars, int i, t_ray ray, float ang
 	}
 	else
 		j = 0;
-	y = (float)(WINDOW_HEIGHT - limit) / 2.0 + (float)(j + 1) * d_y;
+	y = (float)(WINDOW_HEIGHT - limit) / 2.0 + ((float)(j + 1)) * d_y;
 	while (j < (ray.img->height))
 	{
 		if (head.y >= WINDOW_HEIGHT)
 			break ;
-		if (draw_cell(vars, dark_color(get_img_color(ray.img, ray.x, j), ray.len), head, (int)y) == END)
+		if (draw_cell(vars, dark_color(get_img_color(ray.img, ray.x, j),
+					ray.len), head, (int)y) == END)
 			break ;
 		head.y = (int)y;
 		y += d_y;

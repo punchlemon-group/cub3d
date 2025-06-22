@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:48:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:14:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 04:33:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	free_map(t_vars *vars)
 {

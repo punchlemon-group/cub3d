@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 14:19:01 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:17:07 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 04:33:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char	**get_map(const char *file)
 		if (linked_lines == NULL)
 			return (NULL);
 	}
-	// get_map_handle_error(crr_line, linked_lines);
 	free(crr_line);
 	map = ft_split(linked_lines, '\n');
 	free(linked_lines);

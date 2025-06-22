@@ -38,6 +38,7 @@ $(addsuffix .c, \
 		get_img_color \
 		get_map \
 		gettime \
+		init \
 		key_hook \
 		loop_hook \
 		main \
