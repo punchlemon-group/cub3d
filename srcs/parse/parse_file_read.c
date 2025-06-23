@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:44:05 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 20:05:32 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:55:27 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parse_file_content(int fd, t_vars *vars, t_parse_data *data)
 			if (!data->in_map_section)
 				process_not_map_line(vars, line, data, fd);
 			else
-				process_map_line(vars, line, data);
+				process_map_line(vars, &line, data);
 			free(line);
 		}
 		line = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:00:00 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:51:56 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:53:36 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ void	error_message_and_free(t_vars *vars, char *message, int exit_code)
 	free_mlx_all(vars);
 	cleanup_get_next_line();
 	exit(exit_code);
+}
+
+void	error_message_and_free_with_line(t_vars *vars, char *message,
+		char *line, int exit_code)
+{
+	if (line)
+		free(line);
+	error_message_and_free(vars, message, exit_code);
 }
 
 int	is_valid_extension(char *filename)

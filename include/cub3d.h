@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 04:29:07 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:52:57 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,8 @@ void	init(t_vars *vars);
 void	validation_and_parse(int argc, char **argv, t_vars *vars);
 void	parse_cub_file(char *file_path, t_vars *vars);
 void	error_message_and_free(t_vars *vars, char *message, int exit_code);
+void	error_message_and_free_with_line(t_vars *vars, char *message, 
+			char *line, int exit_code);
 int		is_valid_extension(char *filename);
 void	initialize_config(t_vars *vars);
 void	handle_config_error(char *line, int fd, t_vars *vars, char *error_msg);
@@ -258,7 +260,7 @@ int		is_valid_texture_path(char *path, char **error_msg);
 int		validate_color_count(char **parts, char **error_msg);
 int		validate_color_value(char *part, int *color_val, char **error_msg);
 int		start_map_section(char *line, t_parse_data *data, t_vars *vars);
-void	process_map_line(t_vars *vars, char *line, t_parse_data *data);
+void	process_map_line(t_vars *vars, char **line, t_parse_data *data);
 int		is_valid_map_line(char *line);
 int		is_map_enclosed(char **map, int height, int width);
 int		validate_player_position(char **map, int height, int width,
