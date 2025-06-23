@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 14:44:12 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:18:56 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:23:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	process_map_line(t_vars *vars, char *line, t_parse_data *data)
 	if (ft_strlen(line) == 0 || is_valid_map_line(line))
 	{
 		if (ft_strlen(line) == 0 && data->height > 0)
-			error_message_and_free(vars, ft_strdup("Map should not have an empty line"), 1);
+			error_message_and_free(vars,
+				ft_strdup("Map should not have an empty line"), 1);
 		if (ft_strlen(line) > 0)
 			handle_map_line(line, data);
 	}

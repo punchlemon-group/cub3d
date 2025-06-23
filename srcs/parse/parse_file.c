@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:00:00 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:18:00 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:22:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	parse_cub_file(char *file_path, t_vars *vars)
 void	validation_and_parse(int argc, char **argv, t_vars *vars)
 {
 	if (argc != 2)
-		error_message_and_free(vars, ft_strdup("Invalid number of arguments"), 1);
+		error_message_and_free(vars,
+			ft_strdup("Invalid number of arguments"), 1);
 	if (!is_valid_extension(argv[1]))
 		error_message_and_free(vars, ft_strdup("Invalid file name"), 1);
 	parse_cub_file(argv[1], vars);

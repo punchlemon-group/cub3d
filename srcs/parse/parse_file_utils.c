@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:45:41 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:17:25 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:23:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void	handle_empty_line(char *line, int in_map_section, t_vars *vars)
 {
 	free(line);
 	if (in_map_section)
-		error_message_and_free(vars, ft_strdup("Map should not have an empty line"), 1);
+		error_message_and_free(vars,
+			ft_strdup("Map should not have an empty line"), 1);
 }
