@@ -12,32 +12,37 @@
 
 #include "cub3d.h"
 
+static int	key_to_id(int key)
+{
+	if (key == W)
+		return (W_ID);
+	if (key == S)
+		return (S_ID);
+	if (key == D)
+		return (D_ID);
+	if (key == A)
+		return (A_ID);
+	if (key == RIGHT)
+		return (RIGHT_ID);
+	if (key == LEFT)
+		return (LEFT_ID);
+	if (key == UP)
+		return (UP_ID);
+	if (key == DOWN)
+		return (DOWN_ID);
+	if (key == M)
+		return (M_ID);
+	return (-1);
+}
+
 int	key_press(int key, t_vars *vars)
 {
 	int	i;
 
-	i = 0;
 	if (key == ESC)
 		window_close(vars);
-	else if (key == W)
-		i = W_ID;
-	else if (key == S)
-		i = S_ID;
-	else if (key == D)
-		i = D_ID;
-	else if (key == A)
-		i = A_ID;
-	else if (key == RIGHT)
-		i = RIGHT_ID;
-	else if (key == LEFT)
-		i = LEFT_ID;
-	else if (key == UP)
-		i = UP_ID;
-	else if (key == DOWN)
-		i = DOWN_ID;
-	else if (key == M)
-		i = M_ID;
-	else
+	i = key_to_id(key);
+	if (i < 0)
 		return (CNT);
 	vars->keys[i] = 1;
 	return (CNT);
@@ -47,25 +52,8 @@ int	key_release(int key, t_vars *vars)
 {
 	int	i;
 
-	if (key == W)
-		i = W_ID;
-	else if (key == S)
-		i = S_ID;
-	else if (key == D)
-		i = D_ID;
-	else if (key == A)
-		i = A_ID;
-	else if (key == RIGHT)
-		i = RIGHT_ID;
-	else if (key == LEFT)
-		i = LEFT_ID;
-	else if (key == UP)
-		i = UP_ID;
-	else if (key == DOWN)
-		i = DOWN_ID;
-	else if (key == M)
-		i = M_ID;
-	else
+	i = key_to_id(key);
+	if (i < 0)
 		return (CNT);
 	vars->keys[i] = 0;
 	return (CNT);

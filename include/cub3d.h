@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 20:52:57 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 22:02:56 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,15 @@ typedef struct s_vars
 	int			is_map;
 }	t_vars;
 
+typedef struct s_wall_draw_vars
+{
+	int		j;
+	int		limit;
+	t_pnt_i	head;
+	float	y;
+	float	d_y;
+}	t_wall_draw_vars;
+
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_pnt_i c);
 void	ft_circle_put_to_image(t_vars *vars, int color, t_pnt_i c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
@@ -269,7 +278,8 @@ void	finalize_parsing(t_vars *vars, t_parse_data *data);
 char	**allocate_raw_map(void);
 void	cleanup_raw_map(char **raw_map, int height);
 void	parse_file_content(int fd, t_vars *vars, t_parse_data *data);
-void	handle_empty_line(char *line, int in_map_section, t_vars *vars, t_parse_data *data);
+void	handle_empty_line(char *line, int in_map_section, t_vars *vars,
+			t_parse_data *data);
 void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data,
 			int fd);
 
