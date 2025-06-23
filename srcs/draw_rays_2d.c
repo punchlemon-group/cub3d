@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:50:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/30 15:17:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:04:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	draw_rays_2d(t_vars *vars, int color)
 {
 	t_pnt_i	c;
-	float		angle;
-	int			i;
+	float	angle;
+	int		i;
 
 	i = 0;
 	angle = vars->player.angle_rad + VIEWING_HORIZONTAL_ANGLE_RAD / 2;

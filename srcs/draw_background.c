@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 02:34:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/19 03:15:45by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:57:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_background(t_vars *vars, t_colors	colors)
 	float		vertical_angle;
 	int			i;
 	int			j;
-	t_pnt_i	c;
+	t_pnt_i		c;
 
 	i = 0;
 	horizontal_angle = VIEWING_HORIZONTAL_ANGLE_RAD / 2;
