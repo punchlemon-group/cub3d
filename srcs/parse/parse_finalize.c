@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_finalize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:19 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 20:23:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 00:34:30 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	finalize_parsing(t_vars *vars, t_parse_data *data)
 	if (data->height > MAX_MAP_HEIGHT || data->max_width > MAX_MAP_WIDTH)
 	{
 		cleanup_raw_map(data->raw_map, data->height);
-		error_message_and_free(vars, ft_strdup("Map size exceeds maximum allowed"), 1);
+		error_message_and_free(vars,
+			ft_strdup("Map size exceeds maximum allowed"), 1);
 	}
 	data->raw_map[data->height] = NULL;
 	vars->map = adjust_map_data(data->raw_map, data->height, data->max_width);
