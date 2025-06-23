@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 04:55:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 02:05:52 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,16 @@ void	get_player(t_vars *vars)
 	int		i;
 	int		j;
 
+	// if (!vars->map)
+	// 	return;
 	i = 0;
 	while (vars->map[i])
 	{
+		// if (!vars->map[i])
+		// {
+		// 	i++;
+		// 	continue;
+		// }
 		j = 0;
 		while (vars->map[i][j])
 		{

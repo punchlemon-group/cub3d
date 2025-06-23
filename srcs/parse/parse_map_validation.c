@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:25 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 13:54:45 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 02:07:19 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,16 @@ int	is_map_enclosed(char **map, int height, int width)
 	int	i;
 	int	j;
 
+	// if (!map)
+	// 	return (0);
 	i = 0;
 	while (i < height)
 	{
+		// if (!map[i])
+		// {
+		// 	i++;
+		// 	continue;
+		// }
 		j = 0;
 		while (j < width)
 		{
@@ -66,9 +73,16 @@ int	validate_player_position(char **map, int height,
 	int	j;
 
 	*player_count = 0;
+	if (!map)
+		return (0);
 	i = 0;
 	while (i < height)
 	{
+		if (!map[i])
+		{
+			i++;
+			continue;
+		}
 		j = 0;
 		while (j < width)
 		{

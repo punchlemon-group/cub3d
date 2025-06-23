@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:19 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/24 00:34:30 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 02:05:33 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	**alloc_two_dimensional_array(int height, int width)
 			free(arrays);
 			return (NULL);
 		}
+		ft_memset(arrays[i], 0, width + 1);
 		arrays[i][width] = '\0';
 		i++;
 	}
@@ -52,17 +53,15 @@ char	**adjust_map_data(char **raw_map, int height, int width)
 	i = -1;
 	while (++i < height)
 	{
-		j = -1;
 		len = ft_strlen(raw_map[i]);
-		while (++j < len)
+		j = -1;
+		while (++j < width)
 		{
-			if (raw_map[i][j] != ' ')
+			if (j < len && raw_map[i][j] != ' ')
 				adjusted_map[i][j] = raw_map[i][j];
 			else
 				adjusted_map[i][j] = '*';
 		}
-		while (++j < width)
-			adjusted_map[i][j] = '*';
 	}
 	return (adjusted_map);
 }
