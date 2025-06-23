@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_finalize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:19 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:20:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:23:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ void	validate_final_map(t_vars *vars, t_parse_data *data)
 			data->max_width, &player_count))
 	{
 		if (player_count == 0)
-			error_message_and_free(vars, ft_strdup("No player starting position"), 1);
+			error_message_and_free(vars,
+				ft_strdup("No player starting position"), 1);
 		else
-			error_message_and_free(vars, ft_strdup("Multiple player starting positions"), 1);
+			error_message_and_free(vars,
+				ft_strdup("Multiple player starting positions"), 1);
 	}
 	if (!is_map_enclosed(vars->map, data->height, data->max_width))
-		error_message_and_free(vars, ft_strdup("Map is not surrounded by walls"), 1);
+		error_message_and_free(vars,
+			ft_strdup("Map is not surrounded by walls"), 1);
 }
 
 void	finalize_parsing(t_vars *vars, t_parse_data *data)
