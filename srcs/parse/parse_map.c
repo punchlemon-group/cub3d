@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 14:44:12 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 20:40:39 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:52:58 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,26 @@ void	handle_map_line(char *line, t_parse_data *data)
 	}
 }
 
-void	process_map_line(t_vars *vars, char *line, t_parse_data *data)
+void	process_map_line(t_vars *vars, char **line, t_parse_data *data)
 {
-	if (ft_strlen(line) == 0 || is_valid_map_line(line))
+	if (ft_strlen(*line) == 0 || is_valid_map_line(*line))
 	{
-		if (ft_strlen(line) == 0 && data->height > 0)
+		if (ft_strlen(*line) == 0 && data->height > 0)
 		{
 			cleanup_raw_map(data->raw_map, data->height);
+			free(*line);
+			*line = NULL;
 			error_message_and_free(vars,
 				ft_strdup("Map should not have an empty line"), 1);
 		}
-		if (ft_strlen(line) > 0)
-			handle_map_line(line, data);
+		if (ft_strlen(*line) > 0)
+			handle_map_line(*line, data);
 	}
 	else
 	{
 		cleanup_raw_map(data->raw_map, data->height);
+		free(*line);
+		*line = NULL;
 		error_message_and_free(vars, ft_strdup("Invalid character in map"), 1);
 	}
 }
