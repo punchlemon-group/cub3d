@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 22:15:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 23:24:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,6 @@ typedef struct s_vars
 	long		last_event_time;
 	long		last_mouse_time;
 	long		last_frame_time;
-	int			i;
-	int			event_count;
-	float		event_delta_sum;
 	int			map_width;
 	int			map_height;
 	t_player	player;
@@ -254,7 +251,6 @@ int		is_valid_filename(const char *src, const char *extention);
 void	check_args(int argc, char **argv, t_vars *vars);
 void	create_tiles(t_vars *vars);
 void	init(t_vars *vars);
-
 // Parse functions
 void	validation_and_parse(int argc, char **argv, t_vars *vars);
 void	parse_cub_file(char *file_path, t_vars *vars);

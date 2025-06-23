@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 04:55:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 23:24:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	set_zero2(t_vars *vars)
 	vars->last_event_time = 0;
 	vars->last_frame_time = 0;
 	vars->last_mouse_time = 0;
-	vars->i = 0;
-	vars->event_count = 0;
-	vars->event_delta_sum = 0;
 	vars->is_in_mouse = 0;
 	vars->last_key_m = 0;
 	vars->is_map = 0;
