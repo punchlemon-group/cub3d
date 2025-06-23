@@ -245,7 +245,7 @@ int		handle_ceil_config(t_config *config, char *value, char **error_msg);
 int		is_valid_texture_path(char *path, char **error_msg);
 int		validate_color_count(char **parts, char **error_msg);
 int		validate_color_value(char *part, int *color_val, char **error_msg);
-void	start_map_section(char *line, t_parse_data *data, t_vars *vars);
+int		start_map_section(char *line, t_parse_data *data, t_vars *vars);
 void	process_map_line(t_vars *vars, char *line, t_parse_data *data);
 int		is_valid_map_line(char *line);
 int		is_map_enclosed(char **map, int height, int width);

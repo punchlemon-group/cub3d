@@ -26,14 +26,15 @@ void	process_first_map_line(t_vars *vars, char *line,
 		error_message_and_free(vars, ft_strdup("Invalid character in map"), 1);
 }
 
-void	start_map_section(char *line, t_parse_data *data, t_vars *vars)
+int	start_map_section(char *line, t_parse_data *data, t_vars *vars)
 {
 	if (!validate_all_configs(vars))
-		error_message_and_free(vars, ft_strdup("Missing required element"), 1);
+		return (0);
 	data->raw_map = allocate_raw_map();
 	if (!data->raw_map)
-		error_message_and_free(vars, ft_strdup("Memory allocation failed"), 1);
+		return (0);
 	process_first_map_line(vars, line, data);
+	return (1);
 }
 
 void	handle_map_line(char *line, t_parse_data *data)

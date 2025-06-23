@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:44:05 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 13:44:30 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:05:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void	parse_file_content(int fd, t_vars *vars, t_parse_data *data)
 		}
 		line = get_next_line(fd);
 	}
+	if (line)
+		free(line);
 }
