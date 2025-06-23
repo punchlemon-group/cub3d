@@ -6,11 +6,12 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:00:00 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 19:16:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:51:56 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	error_message_and_free(t_vars *vars, char *message, int exit_code)
 {
@@ -59,6 +60,7 @@ void	error_message_and_free(t_vars *vars, char *message, int exit_code)
 			free(vars->mlx);
 		}
 	}
+	cleanup_get_next_line();
 	exit(exit_code);
 }
 

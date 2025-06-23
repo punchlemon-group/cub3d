@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:57:18 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/12/16 10:32:05 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:00:42 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,36 +80,55 @@ int	nobu_set(char **ans, char **buf, int *flag)
 	return (0);
 }
 
+static char	**get_static_mem_addr(void)
+{
+	static char	*mem = NULL;
+
+	return (&mem);
+}
+
+void	cleanup_get_next_line(void)
+{
+	char	**mem;
+
+	mem = get_static_mem_addr();
+	if (*mem)
+	{
+		free(*mem);
+		*mem = NULL;
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buf;
 	char		*ans;
-	static char	*mem;
+	char		**mem;
 	int			flag;
 	ssize_t		n;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	mem = get_static_mem_addr();
 	if (nobu_set(&ans, &buf, &flag))
-		return (all_free(&ans, &buf, &mem, -1));
-	flag = put(&ans, mem, &mem);
+		return (all_free(&ans, &buf, mem, -1));
+	flag = put(&ans, *mem, mem);
 	if (flag == -1)
-		return (all_free(&ans, &buf, &mem, -1));
+		return (all_free(&ans, &buf, mem, -1));
 	while (flag == 0)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
 		if (n < 0)
-			return (all_free(&ans, &buf, &mem, -1));
+			return (all_free(&ans, &buf, mem, -1));
 		buf[n] = '\0';
-		flag = put(&ans, buf, &mem);
+		flag = put(&ans, buf, mem);
 		if (flag == -1 || (n == 0 && *ans == '\0') || n == 0)
-			return (all_free(&ans, &buf, &mem, flag));
+			return (all_free(&ans, &buf, mem, flag));
 	}
-	free(buf);
-	return (ans);
+	return (free(buf), ans);
 }
 
-// #include <fcntl.h>
+// #include <fcntl.h	free(buf)s>
 // #include <stdio.h>
 
 // int	main(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:01:25 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/12/16 10:32:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:44:26 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char	*all_free(char **ans, char **buf, char **mem, int flag);
 int		nobu_set(char **ans, char **buf, int *flag);
 char	*nobu_strjoin(char const *s1, char const *s2, ssize_t n);
 ssize_t	nobu_strchar(const char *s, char c);
+void	cleanup_get_next_line(void);
 
 #endif

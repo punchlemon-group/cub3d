@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:48:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/21 15:14:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:51:05 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
+# include "get_next_line.h"
 
 void	free_map(t_vars *vars)
 {
@@ -55,6 +56,7 @@ void	end(t_vars *vars, int status, const char *message)
 		}
 		free_map(vars);
 	}
+	cleanup_get_next_line();
 	exit(status);
 }
 
