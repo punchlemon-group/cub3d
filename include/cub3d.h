@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 20:59:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 22:00:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,16 @@ typedef struct s_wall_draw_vars
 	float	d_y;
 }	t_wall_draw_vars;
 
+typedef struct s_ray_params
+{
+	int		d_x;
+	int		x_int;
+	float	d_y;
+	int		d_y_h;
+	int		y_int;
+	float	d_x_h;
+}	t_ray_params;
+
 void	ft_pixel_put_to_image(t_vars *vars, int color, t_pnt_i c);
 void	ft_circle_put_to_image(t_vars *vars, int color, t_pnt_i c, int r);
 void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
@@ -280,5 +290,9 @@ void	handle_empty_line(char *line, int in_map_section, t_vars *vars,
 			t_parse_data *data);
 void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data,
 			int fd);
+void	init_vparam(t_vars *v, float a, t_ray *r, t_ray_params *p);
+void	init_hparam(t_vars *v, float a, t_ray *r, t_ray_params *p);
+int		vloop(t_vars *v, float a, t_ray *r, t_ray_params *p);
+int		hloop(t_vars *v, float a, t_ray *r, t_ray_params *p);
 
 #endif
