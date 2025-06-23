@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:00:00 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/17 11:24:56 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:16:52 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	error_message_and_free(t_vars *vars, char *message, int exit_code)
 		if (exit_code != 0)
 			write(STDERR_FILENO, "Error: ", 7);
 		ft_putendl_fd(message, STDERR_FILENO);
+		free(message);
 	}
 	if (vars)
 	{

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:00:00 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 14:22:21 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:18:00 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parse_cub_file(char *file_path, t_vars *vars)
 	ft_bzero(&data, sizeof(t_parse_data));
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-		error_message_and_free(vars, "Cannot open file", 1);
+		error_message_and_free(vars, ft_strdup("Cannot open file"), 1);
 	parse_file_content(fd, vars, &data);
 	close(fd);
 	finalize_parsing(vars, &data);
@@ -30,9 +30,9 @@ void	parse_cub_file(char *file_path, t_vars *vars)
 void	validation_and_parse(int argc, char **argv, t_vars *vars)
 {
 	if (argc != 2)
-		error_message_and_free(vars, "Invalid number of arguments", 1);
+		error_message_and_free(vars, ft_strdup("Invalid number of arguments"), 1);
 	if (!is_valid_extension(argv[1]))
-		error_message_and_free(vars, "Invalid file name", 1);
+		error_message_and_free(vars, ft_strdup("Invalid file name"), 1);
 	parse_cub_file(argv[1], vars);
 }
 
