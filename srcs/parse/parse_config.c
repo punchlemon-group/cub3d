@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:17 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 14:10:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:15:18 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,14 @@ void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data,
 {
 	if (parse_config_line(line, &vars->config, &data->error_msg) == 0)
 	{
-		start_map_section(line, data, vars);
+		if (!start_map_section(line, data, vars))
+		{
+			if (!validate_all_configs(vars))
+				data->error_msg = ft_strdup("Missing required element");
+			else
+				data->error_msg = ft_strdup("Memory allocation failed");
+			handle_config_error(line, fd, vars, data->error_msg);
+		}
 		data->in_map_section = 1;
 	}
 	else if (data->error_msg)

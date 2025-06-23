@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:12 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 14:20:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:10:48 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handle_config_error(char *line, int fd, t_vars *vars,
 {
 	free(line);
 	close(fd);
+	cleanup_get_next_line();
 	error_message_and_free(vars, error_msg, 1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:29:19 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/11 14:22:14 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:20:43 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,23 @@ void	validate_final_map(t_vars *vars, t_parse_data *data)
 			data->max_width, &player_count))
 	{
 		if (player_count == 0)
-			error_message_and_free(vars, "No player starting position", 1);
+			error_message_and_free(vars, ft_strdup("No player starting position"), 1);
 		else
-			error_message_and_free(vars,
-				"Multiple player starting positions", 1);
+			error_message_and_free(vars, ft_strdup("Multiple player starting positions"), 1);
 	}
 	if (!is_map_enclosed(vars->map, data->height, data->max_width))
-		error_message_and_free(vars, "Map is not surrounded by walls", 1);
+		error_message_and_free(vars, ft_strdup("Map is not surrounded by walls"), 1);
 }
 
 void	finalize_parsing(t_vars *vars, t_parse_data *data)
 {
 	if (data->height == 0)
-		error_message_and_free(vars, "Missing required element", 1);
+		error_message_and_free(vars, ft_strdup("Missing required element"), 1);
 	data->raw_map[data->height] = NULL;
 	vars->map = adjust_map_data(data->raw_map, data->height, data->max_width);
 	cleanup_raw_map(data->raw_map, data->height);
 	if (!vars->map)
-		error_message_and_free(vars, "Momory allocation failed", 1);
+		error_message_and_free(vars, ft_strdup("Memory allocation failed"), 1);
 	validate_final_map(vars, data);
 	vars->height = data->height;
 	vars->width = data->max_width;
