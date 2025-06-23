@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/12/30 17:35:09 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:05:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,8 @@ void	print_player_status_for_dev(t_vars *vars)
 {
 	t_player	p;
 
-	// if ((vars->keys[W_ID] != vars->keys[S_ID])
-	// 	|| (vars->keys[A_ID] != vars->keys[D_ID])
-	// 	|| (vars->keys[RIGHT_ID] != vars->keys[LEFT_ID]))
-	// {
-		p = vars->player;
-		printf(", x:%f, y:%f, angle_rad:%f", p.x, p.y, p.angle_rad);
-	// }
+	p = vars->player;
+	printf(", x:%f, y:%f, angle_rad:%f", p.x, p.y, p.angle_rad);
 }
 
 float	get_bias_rad(int *keys)
@@ -91,37 +86,25 @@ void	slide_along_corner(t_pnt_f *p, float corner_x, float corner_y)
 	float	projection_y;
 	float	original_speed;
 
-	// 元の移動速度を保存
 	original_speed = sqrt(p->x * p->x + p->y * p->y);
 	if (original_speed < 0.001f)
-		return;
-
-	// 角の位置ベクトルの長さを計算
+		return ;
 	corner_len = sqrt(corner_x * corner_x + corner_y * corner_y);
 	if (corner_len < 0.001f)
 	{
 		p->x = 0;
 		p->y = 0;
-		return;
+		return ;
 	}
-	
-	// 角の法線ベクトル（正規化）
 	corner_x /= corner_len;
 	corner_y /= corner_len;
-	
-	// 移動ベクトルと法線ベクトルの内積
 	dot_product = p->x * corner_x + p->y * corner_y;
-	
-	// 角に向かう成分のみを除去（角から離れる方向は残す）
 	if (dot_product > 0)
 	{
 		projection_x = dot_product * corner_x;
 		projection_y = dot_product * corner_y;
-		
 		p->x -= projection_x;
 		p->y -= projection_y;
-		
-		// 滑り移動の速度を元の速度の一定割合に調整
 		float slide_speed = sqrt(p->x * p->x + p->y * p->y);
 		if (slide_speed > 0.001f)
 		{
@@ -145,26 +128,21 @@ void	check_corner(t_vars *vars, t_pnt_f *p)
 	x_2 = x_ * x_;
 	y_2 = y_ * y_;
 	radius_2 = PLAYER_RADIUS * PLAYER_RADIUS;
-	
-	// 左上の角
 	if (x_2 + y_2 < radius_2)
 	{
 		if (vars->map[(int)vars->player.y - 1][(int)vars->player.x - 1] == '1')
 			slide_along_corner(p, x_, y_);
 	}
-	// 左下の角
 	else if (x_2 + (1 - y_) * (1 - y_) < radius_2)
 	{
 		if (vars->map[(int)vars->player.y + 1][(int)vars->player.x - 1] == '1')
 			slide_along_corner(p, x_, y_ - 1);
 	}
-	// 右上の角
 	else if ((1 - x_) * (1 - x_) + y_2 < radius_2)
 	{
 		if (vars->map[(int)vars->player.y - 1][(int)vars->player.x + 1] == '1')
 			slide_along_corner(p, x_ - 1, y_);
 	}
-	// 右下の角
 	else if ((1 - x_) * (1 - x_) + (1 - y_) * (1 - y_) < radius_2)
 	{
 		if (vars->map[(int)vars->player.y + 1][(int)vars->player.x + 1] == '1')
@@ -240,7 +218,6 @@ int	loop_hook(t_vars *vars)
 	t_colors		colors;
 
 	now = gettime();
-	// release_check(vars, now);
 	mouse_delta = ONE_SEC_FOR_USEC / (now - vars->last_mouse_time);
 	if (MOUSE_HZ > mouse_delta)
 	{
