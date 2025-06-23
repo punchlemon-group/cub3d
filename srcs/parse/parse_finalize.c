@@ -104,6 +104,11 @@ void	finalize_parsing(t_vars *vars, t_parse_data *data)
 {
 	if (data->height == 0)
 		error_message_and_free(vars, ft_strdup("Missing required element"), 1);
+	if (data->height > MAX_MAP_HEIGHT || data->max_width > MAX_MAP_WIDTH)
+	{
+		cleanup_raw_map(data->raw_map, data->height);
+		error_message_and_free(vars, ft_strdup("Map size exceeds maximum allowed"), 1);
+	}
 	data->raw_map[data->height] = NULL;
 	vars->map = adjust_map_data(data->raw_map, data->height, data->max_width);
 	cleanup_raw_map(data->raw_map, data->height);
