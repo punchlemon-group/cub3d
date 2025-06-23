@@ -265,8 +265,9 @@ int		validate_player_position(char **map, int height, int width,
 			int *player_count);
 void	finalize_parsing(t_vars *vars, t_parse_data *data);
 char	**allocate_raw_map(void);
+void	cleanup_raw_map(char **raw_map, int height);
 void	parse_file_content(int fd, t_vars *vars, t_parse_data *data);
-void	handle_empty_line(char *line, int in_map_section, t_vars *vars);
+void	handle_empty_line(char *line, int in_map_section, t_vars *vars, t_parse_data *data);
 void	process_not_map_line(t_vars *vars, char *line, t_parse_data *data,
 			int fd);
 

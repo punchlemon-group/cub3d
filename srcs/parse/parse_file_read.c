@@ -23,7 +23,7 @@ void	parse_file_content(int fd, t_vars *vars, t_parse_data *data)
 	while (line)
 	{
 		if (line[0] == '\n')
-			handle_empty_line(line, data->in_map_section, vars);
+			handle_empty_line(line, data->in_map_section, vars, data);
 		else
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
