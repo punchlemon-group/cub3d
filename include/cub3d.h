@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 10:16:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:24:51 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,6 @@ int		key_release(int key, t_vars *vars);
 // int		mouse_move(int x, int y, t_vars *vars);
 void	mouse_event(t_vars *vars);
 void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new);
-int		mouse_move(int x, int y, t_vars *vars);
 // init functions
 int		is_valid_filename(const char *src, const char *extention);
 void	check_args(int argc, char **argv, t_vars *vars);
