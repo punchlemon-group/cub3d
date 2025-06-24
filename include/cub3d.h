@@ -6,12 +6,15 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 23:24:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 09:40:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# define MAX_MAP_WIDTH 100
+# define MAX_MAP_HEIGHT 100
 
 # define ESC 65307
 # define UP 65362
