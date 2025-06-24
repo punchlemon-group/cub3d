@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 09:40:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 10:16:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,10 @@ void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
 void	ft_rectangle_put_to_image(t_vars *vars, int color, t_pnt_i c,
 			t_pnt_i len);
 
+void	slide_along_corner(t_pnt_f *p, float corner_x, float corner_y);
+float	get_bias_rad(int *keys);
+void	check_corner(t_vars *vars, t_pnt_f *p);
+void	handle_key_event(t_vars *vars, long now);
 void	cast_rays(t_vars *vars);
 int		dark_color(int color, float len);
 void	draw_background(t_vars *vars, t_colors colors);
