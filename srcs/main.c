@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 13:28:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:15:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,9 @@ void	get_player(t_vars *vars)
 	int		i;
 	int		j;
 
-	// if (!vars->map)
-	// 	return;
 	i = 0;
 	while (vars->map[i])
 	{
-		// if (!vars->map[i])
-		// {
-		// 	i++;
-		// 	continue;
-		// }
 		j = 0;
 		while (vars->map[i][j])
 		{
