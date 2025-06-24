@@ -23,6 +23,7 @@ WHITE = \033[37m
 SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
+		cast_rays_utils \
 		cast_rays \
 		dark_color \
 		draw_background \
