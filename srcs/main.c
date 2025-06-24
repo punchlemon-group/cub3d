@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:08:25 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 02:05:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:28:06 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	set_zero2(t_vars *vars)
 	vars->last_event_time = 0;
 	vars->last_frame_time = 0;
 	vars->last_mouse_time = 0;
-	vars->i = 0;
-	vars->event_count = 0;
-	vars->event_delta_sum = 0;
 	vars->is_in_mouse = 0;
 	vars->last_key_m = 0;
 	vars->is_map = 0;
@@ -111,7 +108,6 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.win, KeyPress, KeyPressMask, key_press, &vars);
 	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_release, &vars);
 	mlx_hook(vars.win, DestroyNotify, NoEventMask, window_close, &vars);
-	mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, loop_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);

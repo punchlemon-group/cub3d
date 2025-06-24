@@ -57,31 +57,3 @@ void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new)
 			vars->player.angle_rad -= TPI;
 	}
 }
-
-int	mouse_move(int x, int y, t_vars *vars)
-{
-	t_pnt_i	new;
-	float	delta_x;
-
-	new.x = x;
-	new.y = y;
-	if (vars->is_in_mouse)
-	{
-		delta_x = (float)(vars->mouse.x - new.x);
-		vars->player.angle_rad += MOUSE_ROTATE_SPEED_EVENT * delta_x;
-		while (vars->player.angle_rad < 0)
-			vars->player.angle_rad += TPI;
-		while (vars->player.angle_rad >= TPI)
-			vars->player.angle_rad -= TPI;
-		vars->mouse.x = new.x;
-		vars->mouse.y = new.y;
-	}
-	else
-	{
-		vars->is_in_mouse = 1;
-		mlx_mouse_hide(vars->mlx, vars->win);
-		vars->mouse.x = new.x;
-		vars->mouse.y = new.y;
-	}
-	return (0);
-}

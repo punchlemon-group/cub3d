@@ -39,8 +39,11 @@ $(addsuffix .c, \
 		get_img_color \
 		get_map \
 		gettime \
+		handle_key_event_utils \
+		handle_key_event \
 		init \
 		key_hook \
+		loop_hook_utils \
 		loop_hook \
 		main \
 		player_rotate \

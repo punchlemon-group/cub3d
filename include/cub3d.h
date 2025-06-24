@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 13:24:09 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:28:01 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,6 @@ typedef struct s_vars
 	long		last_event_time;
 	long		last_mouse_time;
 	long		last_frame_time;
-	int			i;
-	int			event_count;
-	float		event_delta_sum;
 	int			map_width;
 	int			map_height;
 	t_player	player;
@@ -233,6 +230,10 @@ void	ft_square_put_to_image(t_vars *vars, int color, t_pnt_i c, int a);
 void	ft_rectangle_put_to_image(t_vars *vars, int color, t_pnt_i c,
 			t_pnt_i len);
 
+void	slide_along_corner(t_pnt_f *p, float corner_x, float corner_y);
+float	get_bias_rad(int *keys);
+void	check_corner(t_vars *vars, t_pnt_f *p);
+void	handle_key_event(t_vars *vars, long now);
 void	cast_rays(t_vars *vars);
 int		dark_color(int color, float len);
 void	draw_background(t_vars *vars, t_colors colors);
@@ -251,13 +252,11 @@ int		key_release(int key, t_vars *vars);
 // int		mouse_move(int x, int y, t_vars *vars);
 void	mouse_event(t_vars *vars);
 void	player_rotate_for_mouse(t_vars *vars, t_pnt_i *new);
-int		mouse_move(int x, int y, t_vars *vars);
 // init functions
 int		is_valid_filename(const char *src, const char *extention);
 void	check_args(int argc, char **argv, t_vars *vars);
 void	create_tiles(t_vars *vars);
 void	init(t_vars *vars);
-
 // Parse functions
 void	validation_and_parse(int argc, char **argv, t_vars *vars);
 void	parse_cub_file(char *file_path, t_vars *vars);
