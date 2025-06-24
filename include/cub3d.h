@@ -6,15 +6,15 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:41:15 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 13:28:01 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:52:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define MAX_MAP_WIDTH 100
-# define MAX_MAP_HEIGHT 100
+# define MAX_MAP_WIDTH 80
+# define MAX_MAP_HEIGHT 45
 
 # define ESC 65307
 # define UP 65362
