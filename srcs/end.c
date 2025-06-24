@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:48:30 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/23 20:23:58 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:38:17 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ void	free_images(t_vars *vars)
 		mlx_destroy_image(vars->mlx, vars->image_buffer);
 }
 
+static void	free_config(t_vars *vars)
+{
+	if (vars->config.no_path)
+		free(vars->config.no_path);
+	if (vars->config.so_path)
+		free(vars->config.so_path);
+	if (vars->config.we_path)
+		free(vars->config.we_path);
+	if (vars->config.ea_path)
+		free(vars->config.ea_path);
+}
+
 void	end(t_vars *vars, int status, const char *message)
 {
 	if (message)
@@ -54,6 +66,7 @@ void	end(t_vars *vars, int status, const char *message)
 			mlx_destroy_display(vars->mlx);
 			free(vars->mlx);
 		}
+		free_config(vars);
 		free_map(vars);
 	}
 	cleanup_get_next_line();
