@@ -6,11 +6,16 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2025/06/24 10:20:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2025/06/24 10:42:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	rgb_to_int(int rgb[3])
+{
+	return (((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF));
+}
 
 static void	handle_mouse_event(t_vars *vars, long now)
 {
@@ -33,8 +38,8 @@ static void	handle_frame_event(t_vars *vars, long now)
 	if (FRAME_HZ > frame_delta)
 	{
 		cast_rays(vars);
-		colors.ceiling = 0x36300c;
-		colors.floor = 0x222222;
+		colors.ceiling = rgb_to_int(vars->config.ceil_color);
+		colors.floor = rgb_to_int(vars->config.floor_color);
 		draw_background(vars, colors);
 		draw_wall(vars);
 		if (vars->is_map)
