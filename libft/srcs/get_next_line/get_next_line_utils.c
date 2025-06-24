@@ -6,11 +6,23 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:43:57 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/08/18 14:23:55 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:20:16 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	cleanup_get_next_line(void)
+{
+	char	**mem;
+
+	mem = get_static_mem_addr();
+	if (*mem)
+	{
+		free(*mem);
+		*mem = NULL;
+	}
+}
 
 char	*nobu_strjoin(char const *s1, char const *s2, ssize_t n)
 {

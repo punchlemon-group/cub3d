@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:57:18 by hnakayam          #+#    #+#             */
-/*   Updated: 2025/06/23 20:00:42 by hnakayam         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:23:12 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,11 @@ int	nobu_set(char **ans, char **buf, int *flag)
 	return (0);
 }
 
-static char	**get_static_mem_addr(void)
+char	**get_static_mem_addr(void)
 {
 	static char	*mem = NULL;
 
 	return (&mem);
-}
-
-void	cleanup_get_next_line(void)
-{
-	char	**mem;
-
-	mem = get_static_mem_addr();
-	if (*mem)
-	{
-		free(*mem);
-		*mem = NULL;
-	}
 }
 
 char	*get_next_line(int fd)
